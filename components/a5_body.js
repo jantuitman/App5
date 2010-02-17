@@ -4,7 +4,7 @@ function a5_body(id)
 	this.name='a5_body';
 	//this.childType='untyped';
 	this.childType='unordered';
-	this.childsAllowed=['a5_buttonmenu','a5_html','a5_list','a5_form'];
+	this.childsAllowed=['a5_buttonmenu','a5_html','a5_list','a5_form','a5_wiki','a5_panel'];
 	this.children=[];
 	this.attributeDefinitions=[{ name:'scrollwrapping'}];
 	this.attributes={};

@@ -16,7 +16,7 @@ a5_application.prototype=new App5Component();
 
 a5_application.prototype.init=function(applicationName,settings){
 
-  console.log("INIT CALLED "+applicationName);
+  //console.log("INIT CALLED "+applicationName);
   var self=this;
   this.applicationName=applicationName;	
   this.settings=settings;
@@ -108,7 +108,7 @@ a5_application.prototype.resize=function(){
 		this.windowWidth=520;
 		this.windowHeight=350;
 		this.sidebarWidth=200;
-	    console.log("windowsizes",$(window).width(),$(window).height());
+	    //console.log("windowsizes",$(window).width(),$(window).height());
 	    var selectedSize=-1;
 	    for (var i=0; i<this.settings.preferred_sizes.length;i++) {
 		    //alert(""+$(window).width()+" , "+$(window).height())
@@ -237,7 +237,7 @@ a5_application.prototype.captureEvent=function(e) {
 	   s=e.currentTarget.id;
     }
 	if (e.type=='touchstart' || e.type=='touchmove') {
-		console.log("touch event :"+s);
+		//console.log("touch event :"+s);
 	}
     if (s) return this.dispatchEventForId(e,s);
 }
@@ -331,12 +331,12 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 						});
 					},
 					error: function () {
-						console.log('cannot load controllers/'+viewName+'.js')
+						//console.log('cannot load controllers/'+viewName+'.js')
 					}
 				})
 			},
 			error: function () {
-				console.log('cannot load views/'+viewName+'.html')
+				//console.log('cannot load views/'+viewName+'.html')
 			}
 		})
 	}
@@ -356,7 +356,7 @@ a5_application.prototype.animateScreen=function(id,transition) {
 
 	
 	// first make visible.
-	console.log("Making visible: "+id);
+	//console.log("Making visible: "+id);
 	
 	
 	if (transition==App5.TRANSITION_GOFORWARD) {
@@ -437,7 +437,7 @@ a5_application.prototype.loadModel=function(name,success,failure)
 				}
 			},
 			error: function () {
-				console.log('cannot load models/'+name+'.js')
+				//console.log('cannot load models/'+name+'.js')
 			}
 		})
 	}

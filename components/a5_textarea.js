@@ -52,7 +52,7 @@ a5_textarea.prototype.renderContent=function(arr) {
 	arr.push(value);
 	arr.push('</textarea>');	
 	/*
-	//console.log("we have "+(nLines+1)+" rows!");
+	////console.log("we have "+(nLines+1)+" rows!");
 	arr.push('<pre class="app5textarea" '+App5.writeId(this.id,'readview')+ '>')
 	arr.push(value);
 	arr.push('</pre>')
@@ -81,7 +81,7 @@ a5_textarea.prototype.onfocus=function(event) {
 
 
 a5_textarea.prototype.onkeyup=function(event) {
-	console.log("keyup detected "+event.keyCode)
+	//console.log("keyup detected "+event.keyCode)
     if (this.getParentObject("a5_application").deviceModel==App5.DM_IPHONE) {
 	  var textarea = App5.$(this.id).get(0);
 	  var newHeight = textarea.scrollHeight;

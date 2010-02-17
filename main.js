@@ -22,8 +22,8 @@ var settings= {
 	]
 */
 , preferred_sizes: [
-	{ minX: 800 , minY: 1,  width:600, height: 700 , sidebar: 200  },
-	{ minX: 1200, minY: 1,  width:900, height: 700 , sidebar: 275  }
+	{ minX: 800 , minY: 1,  width:600, height: 500 , sidebar: 200  },
+	{ minX: 1200, minY: 1,  width:900, height: 500 , sidebar: 275  }
   ]
 	, mode: "debug"	
 };
@@ -31,5 +31,5 @@ var settings= {
 
 $(document).ready(function() {
 	
-     	App5.runApplication("Notes","notes",settings);
+     	App5.runApplication("App5Documentation","documentation",settings);
 })

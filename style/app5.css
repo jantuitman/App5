@@ -76,3 +76,62 @@
 	padding:4px 8px;
 }
 
+
+
+
+#app5application .app5wiki h1 {
+	font:  italic normal 1.4em georgia, sans-serif;
+	letter-spacing: 1px; 
+	margin-bottom: 0; 
+	color: #ff4040;
+
+}
+
+#app5application .app5wiki * {
+   font-size:12pt;
+}
+
+#app5application .app5wiki p {
+	margin-top:10pt;
+}
+
+#app5application .app5wiki h2 {
+	font: italic normal 1.8em georgia, sans-serif;
+	letter-spacing: 1px; 
+	margin-bottom: 0; 
+	color: #8080ff;
+
+}
+
+#app5application .app5wiki h3 { 
+	font: italic normal 1.4em georgia, sans-serif;
+	letter-spacing: 1px; 
+	margin-bottom: 0; 
+	color: #80FF00;
+	}
+
+#app5application .app5wiki a:link,a:visited { color: #2184ff;  }
+#app5application .app5wiki a:hover,a:active { color: #73ff16; }
+
+#app5application .app5wiki blockquote {
+	display: block;
+	padding: 4px;
+	margin: 0 20px;
+	background:#eeeeff;
+	color: #555793;
+	border-left:1px dashed #73ff16;;
+	font:1.2em;
+}
+
+#app5application .app5wiki pre {
+	display: block;
+	margin: 0 20px;
+	padding:4px;
+	background:#eeeeff;
+	color: #555793;
+	border:1px solid #73ff16;;
+    max-width:40em;
+	overflow:auto;
+	font:1.2em;
+}
+

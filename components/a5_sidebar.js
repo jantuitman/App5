@@ -5,7 +5,7 @@ function a5_sidebar(id)
 
 
 	this.childType='unordered';
-	this.childsAllowed=['a5_buttonmenu','a5_html','a5_list','a5_form'];
+	this.childsAllowed=['a5_buttonmenu','a5_html','a5_list','a5_form','a5_wiki','a5_panel'];
 	this.children=[];
 	
 	this.isAreaObject=true;

@@ -26,7 +26,7 @@ a5_input.prototype.update=function()
 		var el=App5.$(this.id);
 		var arr=[];
 		this.renderContent(arr);
-		console.log("updating",el,arr);
+		//console.log("updating",el,arr);
 		o.html(arr.join(''));
 	}
 }
@@ -40,9 +40,9 @@ a5_input.prototype.renderContent=function(arr) {
 	var value='';
 	var key=form.keys[App5.shortId(this.id)];
 	if (key && form.model) {
-		console.log("keypath",form.getKeyPath(key));
+		//console.log("keypath",form.getKeyPath(key));
 		value=form.model.getValueForPath(form.getKeyPath(key));
-		console.log(form.model,value);
+		//console.log(form.model,value);
 	} 
 	arr.push(' value="'+value+'" ');
 	arr.push(App5.writeCaptureHandlers(['change','blur']));
