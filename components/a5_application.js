@@ -310,12 +310,16 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 	{
 		$.ajax({
 			url: 'views/'+viewName+suffix+'.xml',
-			type: 'text',
+			type: 'get',
+			responseType: 'text',
 			success: function(txt) {
-				
+				if (txt.documentElement) {
+				    var s=(new XMLSerializer()).serializeToString(txt);	
+					txt=s
+				}				
 				$.ajax({
 					url: 'controllers/'+viewName+suffix+'.js',
-					type: 'text',
+					type: 'get',
 					success: function (t) {
 						eval(t); // the controller will call the method .Controller in App5
 						         // which will call the addController method with will store the controller of the view
@@ -425,7 +429,7 @@ a5_application.prototype.loadModel=function(name,success,failure)
 	{
 		$.ajax({
 			url: 'models/'+name+'.js',
-			type: 'text',
+			type: 'get',
 			success: function(txt) {
 				eval(txt);
 				self.models[name]=new App5.models[name]();
