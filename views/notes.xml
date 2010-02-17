@@ -1,0 +1,7 @@
+<a5_screen>
+	<a5_header title="overview"><a5_button id="addButton" label="add" /></a5_header>
+	<a5_body scrollwrapping="true">
+		<a5_list id="mylist" arrows="true"/>
+	</a5_body>
+	<a5_footer></a5_footer>
+</a5_screen>

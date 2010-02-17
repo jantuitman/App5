@@ -1,0 +1,78 @@
+
+#app5application * {
+	margin:0;
+	padding:0;
+	font-size:20px;
+	font-family:Helvetica, sans-serif;
+}
+
+
+#app5application .app5sidebar {
+	background:#444;
+	border-right:3px solid #444;
+	margin-right:10px;
+}
+
+
+#app5application .app5windowstyle {
+	background-color:[windowColor];
+	color:[textColor];
+}
+
+#app5application .app5barstyle {
+	background-color: [toolbarColor];
+	background:-webkit-gradient(linear,0 0, 0 100%,from([toolbarColor2]),to([toolbarColor]),color-stop(0.6,[toolbarColor]));
+	background:-moz-linear-gradient(top, [toolbarColor2],[toolbarColor] 60%, [toolbarColor]);
+	color: [toolbarTextColor];
+}
+
+#app5application .app5barstyle input.button {
+	font-size:16px;
+	padding: 2px 3px 2px 3px;
+	margin: 2px 3px 2px 3px;
+	color: [toolbarTextColor];
+	border: 1px solid #408000;
+	background-color: [buttonColor];
+	background:-webkit-gradient(linear,0 0, 0 100%,from([buttonColor2]),to([buttonColor]),color-stop(0.4,[buttonColor]));
+	background:-moz-linear-gradient(top, [buttonColor2],[buttonColor] 40%, [buttonColor])
+	display: inline-block;
+	
+}
+
+
+#app5application .app5list li {
+	border-bottom:1px solid #DDDDDD;
+	padding:4px 8px;
+}
+
+.app5listarrow {
+	float:right;color:#DDDDDD;font-weight:bolder;
+}
+
+#app5application fieldset {
+	margin:10px 4px 4px 4px;
+	width:280px;
+	border:1px solid #DDDDDD;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	background:#eeeeee;
+}
+
+#app5application fieldset textarea{
+	width:100%;
+	resize:none;
+	font-size:14px;
+    border:white;
+}
+
+#app5application fieldset input{
+	width:100%;
+    border:white;
+}
+
+
+#app5application fieldset div {
+	border-bottom:1px solid #DDDDDD;
+	padding:4px 8px;
+}
+

@@ -1,0 +1,14 @@
+<a5_screen>
+	<a5_header title="edit note"></a5_header>
+	<a5_body>
+		<a5_form id="myform">
+			<a5_input label="title" id="title" />
+			<a5_textarea label="text" id="text" />
+		</a5_form>
+	</a5_body>
+	<a5_footer>
+		<a5_button id="doneNote" label="done" />
+		<a5_seperator/>
+		<a5_button id="deleteNote" label="delete" />
+	</a5_footer>
+</a5_screen>
