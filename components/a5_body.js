@@ -69,10 +69,13 @@ a5_body.prototype.render=function(arr) {
 
     var height=this.getParentObject("a5_application").bodyHeight;
     if (this.getAttribute('scrollwrapping') == "true") {
-		
-		arr.push('<div '+App5.writeId(this.id)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' style="background-color:white;height:'+height+'px;overflow:hidden;" >');		
+		var scrollBar='hidden';
+		if (this.getParentObject("a5_application").deviceModel==App5.DM_BROWSER) {
+			scrollBar='scroll';
+		}
+		arr.push('<div '+App5.writeId(this.id)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' style="background-color:white;height:'+height+'px;overflow-y:'+scrollBar+';" >');		
 		arr.push('<div '+App5.writeId(this.id,'scrollpane')+'>');
-		if (this.getParentObject("a5_application").iphone) {
+		if (this.getParentObject("a5_application").deviceModel==App5.DM_IPHONE) {
 			this.scrollhandler=new IPhoneScrollHandler();
 		}
     }
