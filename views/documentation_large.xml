@@ -3,7 +3,7 @@
 		<a5_list id="mylist" arrows="true"/>
 	</a5_sidebar>
 	<a5_header title=""><a5_button id="toJSON" label="json dump " /><a5_button id="editButton" label="edit" /><a5_button id="addButton" label="add" /></a5_header>
-	<a5_body title="App5 Documentation">
+	<a5_body title="App5 Documentation" scrollwrapping="true">
 		<a5_panel id="panel1" >
 			<a5_wiki id="mywiki" />
 		</a5_panel>
