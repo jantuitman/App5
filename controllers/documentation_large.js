@@ -14,27 +14,42 @@ App5.Controller('documentation',{
 	}
 	,
     
-    onshow: function() {
+    onshow: function(params) {
+	    this.treePath=[];
 		var panel1=App5.get("panel1");
 		panel1.setAttribute("display","block");
 		var panel2=App5.get("panel2");
 		panel2.setAttribute("display","none");
 		var wiki=App5.get("mywiki");
-		wiki.setKeyPath([ 0 ]);
+		var list=App5.get('mylist');
+		list.setKeyPath(this.treePath);
+		var arr=[];
+		for (var i=0;i<this.treePath.length;i++) arr.push(this.treePath[i]);
+		arr.push(0);
+		wiki.setKeyPath(arr);
 	
 	}
     ,
     
     onselect_mylist: function(data) {
+		var list=App5.get('mylist');
+
 		var panel1=App5.get("panel1");
 		panel1.setAttribute("display","block");
 		var panel2=App5.get("panel2");
 		panel2.setAttribute("display","none");
 		var wiki=App5.get("mywiki");
-		wiki.setKeyPath([ data.index ]);
-		
-		App5.get('myform').setKeyPath([ data.index ]);
+		wiki.setKeyPath(list.getKeyPath(data.index));
+
+		App5.get('myform').setKeyPath(list.getKeyPath(data.index));
 		App5.get('myform').setKeys( { 'title': 'title', 'text': 'text'});
+
+		var model=App5.getModel('documentation');
+
+		if (model.getValueForPath(list.getKeyPath(data.index)).children) {
+			list.setKeyPath(list.getKeyPath(data.index,'children'));
+		}
+		
     }
 	,
 	
