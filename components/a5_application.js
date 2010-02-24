@@ -279,6 +279,17 @@ a5_application.prototype.dispatchEventForId=function(e,s) {
 
 /********** views/controllers *************/
 
+a5_application.prototype.navigateSidebar=function(viewName,data) {
+
+	this.viewStack.push( { viewName: viewName, data: data, viewMode: App5.VM_SIDEBAR });
+	if (this.views[this.currentView] && this.views[this.currentView].onsidebarnavigate){
+		this.views[this.currentView].onsidebarnavigate(data);
+		this.views[this.currentView].component.getChildObject("a5_sidebar").update();
+	}
+}
+
+
+
 a5_application.prototype.pushView=function(viewName,data,viewMode) {
 	if (!viewMode) viewMode=App5.VM_NORMAL;
 	this.viewStack.push( { viewName: viewName, data: data, viewMode: viewMode });
@@ -287,10 +298,22 @@ a5_application.prototype.pushView=function(viewName,data,viewMode) {
 
 a5_application.prototype.popView=function() {
 	if (this.viewStack.length > 1 ) {
-		this.viewStack.pop();
-		var previousView=this.viewStack[this.viewStack.length-1];
-		if (previousView.viewMode==App5.VM_NORMAL) {
-			this.showView(previousView.viewName,previousView.data,App5.TRANSITION_GOBACK);
+		var currentView=this.viewStack.pop();
+		if (currentView.viewMode==App5.VM_SIDEBAR) {
+			var previousView=this.viewStack[this.viewStack.length-1];
+			if (previousView.viewMode==App5.VM_SIDEBAR) {
+				this.views[this.currentView].onsidebarnavigate(previousView.data);
+			}
+			else {
+				this.views[this.currentView].onsidebarnavigate(null);
+			}
+			this.views[this.currentView].component.getChildObject("a5_sidebar").update();
+		}
+		else {
+			var previousView=this.viewStack[this.viewStack.length-1];
+			if (previousView.viewMode==App5.VM_NORMAL) {
+				this.showView(previousView.viewName,previousView.data,App5.TRANSITION_GOBACK);
+			}
 		}
 	}
 }

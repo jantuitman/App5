@@ -39,16 +39,27 @@ a5_sidebar.prototype.render=function(arr) {
 	var headerheight=fontsize+10; 
 	var application=this.getParentObject('a5_application');
 	var totalHeight=headerheight+application.bodyHeight;
-	arr.push('<div style="float:left;width:'+application.sidebarWidth+'px;height:'+totalHeight+'px" class="app5sidebar" >');
+	arr.push('<div '+App5.writeId(this.id)+' style="float:left;width:'+application.sidebarWidth+'px;height:'+totalHeight+'px" class="app5sidebar" >');
 
-	arr.push('<div '+App5.writeId(this.id)+' style="height:'+headerheight+'px;" class="app5barstyle" >');
+	this.renderContents(arr);
+
+	arr.push('</div>');
+}
+
+a5_sidebar.prototype.renderContents=function(arr) {
+	
+	var fontsize=this.getParentObject("a5_application").getFontSize();
+	var headerheight=fontsize+10; 
+	var application=this.getParentObject('a5_application');
+	var totalHeight=headerheight+application.bodyHeight;
+	arr.push('<div  style="height:'+headerheight+'px;" class="app5barstyle" >');
 	// add back button.
 	var backItem=null;
 	if (application.viewStack.length > 1) {
 		backItem=application.viewStack[application.viewStack.length-2];
 		currentItem=application.viewStack[application.viewStack.length-1]
 		// modal views do not need a back button, normal views do.
-		if (currentItem.viewMode==App5.VM_NORMAL) {
+		if (currentItem.viewMode==App5.VM_NORMAL  || currentItem.viewMode==App5.VM_SIDEBAR ) {
 			arr.push('<input type="button"   '+App5.writeId(this.id,'backbutton')+' class="button" value="&lt;&nbsp;'+backItem.viewName+'"/>')
 		}
 		
@@ -58,8 +69,7 @@ a5_sidebar.prototype.render=function(arr) {
 	arr.push('</div>')
 
     this.renderBody(arr);
-
-	arr.push('</div>');
+	
 }
 
 a5_sidebar.prototype.renderBody=function(arr) {
@@ -92,6 +102,13 @@ a5_sidebar.prototype.renderBody=function(arr) {
 	}
 	arr.push('</div>');
 	
+}
+
+a5_sidebar.prototype.update=function() {
+	
+	var arr=[];
+	this.renderContents(arr);
+	App5.$(this.id).html(arr.join(""));
 }
 
 App5.components['a5_sidebar']=a5_sidebar;

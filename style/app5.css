@@ -10,7 +10,6 @@
 #app5application .app5sidebar {
 	background:#444;
 	border-right:3px solid #444;
-	margin-right:10px;
 }
 
 
@@ -92,7 +91,9 @@
 }
 
 #app5application .app5wiki p {
-	margin-top:10pt;
+   margin-top:10pt;
+   line-height:1.4;
+   text-align:justify;
 }
 
 #app5application .app5wiki h2 {
@@ -135,3 +136,25 @@
 	font:1.2em;
 }
 
+#app5application .app5wiki code  {
+	font-family: Monospace;
+}
+
+
+
+
+#app5application .app5wiki li  {
+	margin-left: 20px;
+}
+
+
+#app5application .app5wiki table.styled  {
+	padding: 5px;
+	border-collapse:collapse;
+}
+
+#app5application .app5wiki table.styled td {
+   border:1px solid #dddddd;
+   border-collapse:collapse;
+   padding: 3px;
+}

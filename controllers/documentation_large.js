@@ -31,6 +31,17 @@ App5.Controller('documentation',{
 	}
     ,
     
+    onsidebarnavigate: function (params) {
+	   var list=App5.get('mylist');
+	   if (params==null) {
+	     	list.setKeyPath([]);
+	   }
+	   else {
+	   		list.setKeyPath(params);
+	   }
+    },    
+
+
     onselect_mylist: function(data) {
 		var list=App5.get('mylist');
 
@@ -47,7 +58,8 @@ App5.Controller('documentation',{
 		var model=App5.getModel('documentation');
 
 		if (model.getValueForPath(list.getKeyPath(data.index)).children) {
-			list.setKeyPath(list.getKeyPath(data.index,'children'));
+			App5.navigateSidebar(model.getValueForPath(list.getKeyPath(data.index,'title')),list.getKeyPath(data.index,'children'));
+			//list.setKeyPath(list.getKeyPath(data.index,'children'));
 		}
 		
     }

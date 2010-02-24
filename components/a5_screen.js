@@ -24,7 +24,9 @@ a5_screen.prototype.render=function(replace)
 		arr.push('<div>')
 	}
 	this.getChildObject('a5_header').render(arr);
+	if (sidebar) arr.push('<div style="margin-left:'+sidebarWidth+'px;width:'+(newWidth)+'px;">');
 	this.getChildObject('a5_body').render(arr);
+	if (sidebar) arr.push('</div>');
 	this.getChildObject('a5_footer').render(arr);
 	if (sidebar) arr.push('</div>'); // close main area.
 	arr.push('</div>'); // close screen
