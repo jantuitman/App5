@@ -17,7 +17,7 @@ App5.Controller('documentation',{
     ,
     
     onselect_mylist: function(data) {
-		App5.pushView('singlepage', { index : data.index});
+		App5.pushView('singlepage', [ data.index ]);
     }
 	
 

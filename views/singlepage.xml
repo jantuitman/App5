@@ -2,6 +2,7 @@
 	<a5_header title="Page"></a5_header>
 	<a5_body scrollwrapping="true">
 		<a5_wiki id="mywiki" />
+		<a5_list id="childlist" />
 	</a5_body>
 	<a5_footer>
 	</a5_footer>
