@@ -376,9 +376,12 @@ a5_application.prototype.animateScreen=function(id,transition) {
 	if (this.currentScreenId != null && App5.$(this.currentScreenId)) {
 		var oldId=this.currentScreenId;
 		$('#'+oldId).animate({'left':'-=320px'},'fast');
-		window.setTimeout(function () {
-			App5.$(oldId).remove();
-		},20)
+		
+		if (oldId != id ) {
+			window.setTimeout(function () {
+				App5.$(oldId).remove();
+			},20)
+		}
 	}
 
 	

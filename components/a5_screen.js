@@ -42,7 +42,12 @@ a5_screen.prototype.render=function(replace)
 
 a5_screen.prototype.activate=function(transition) {
 	// TODO: this might go wrong if the screen is already the current screen.
-	this.render(false);
+	if (App5.$(this.id).get(0)) {
+	this.render(true);
+	}
+	else {
+		this.render(false);
+	}
 	this.parent.animateScreen(this.id,transition);
 }
 
