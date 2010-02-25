@@ -78,14 +78,13 @@ a5_application.prototype.placeScreenOnTop=function()
 {
     if (this.deviceModel==App5.DM_IPHONE) {
 		window.setTimeout(function () { 
-			window.scrollTo(0,416);
-			window.setTimeout(function () {
-			  window.scrollTo(0,0);	
-			},50) 
+			window.scrollTo(0,0);
+
 	    },50)
 	}
 	
 }
+
 
 a5_application.prototype.resize=function(){
 
@@ -328,6 +327,7 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 	if (this.views[viewName]) {
 		this.views[viewName].activate(data,transition);
 		self.currentView=viewName;
+		self.placeScreenOnTop();
 	}
 	else
 	{
@@ -352,6 +352,7 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 						self.views[viewName].init(txt, function () {
 							self.views[viewName].activate(data,transition,location);
 							self.currentView=viewName;
+							self.placeScreenOnTop();
 						},
 						function (errorText) { 
 							console.error(errorText);
