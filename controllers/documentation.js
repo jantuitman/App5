@@ -19,7 +19,11 @@ App5.Controller('documentation',{
     onselect_mylist: function(data) {
 		App5.pushView('singlepage', [ data.index ]);
     }
+	,
 	
+	onclick_notesButton: function(evt) {
+		App5.pushView('notes');
+	}
 
 		
 });

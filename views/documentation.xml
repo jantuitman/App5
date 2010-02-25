@@ -3,5 +3,5 @@
 	<a5_body scrollwrapping="true">
 		<a5_list id="mylist" arrows="true"/>
 	</a5_body>
-	<a5_footer></a5_footer>
+	<a5_footer><a5_button id="notesButton" label="show notes app" /></a5_footer>
 </a5_screen>
