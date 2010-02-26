@@ -79,13 +79,13 @@ a5_sidebar.prototype.renderBody=function(arr) {
 	if (this.getAttribute('scrollwrapping') == "true") {
         
 		var overflow="hidden";
-		if (this.getParentObject("a5_application").deviceModel != App5.DM_IPHONE) {
+		if (this.getParentObject("a5_application").deviceModel == App5.DM_BROWSER) {
 			overflow="scroll"
 		}
 		
 		arr.push('<div '+App5.writeId(this.id)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' class="app5windowstyle" style="height:'+height+'px;overflow-y:'+overflow+';" >');		
 		arr.push('<div '+App5.writeId(this.id,'scrollpane')+'>');
-		if (this.getParentObject("a5_application").iphone) {
+		if (this.getParentObject("a5_application").deviceModel== App5.DM_IPHONE || this.getParentObject("a5_application").deviceModel== App5.DM_IPAD ) {
 			this.scrollhandler=new IPhoneScrollHandler();
 		}
 	}

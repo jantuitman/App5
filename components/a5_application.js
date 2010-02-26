@@ -21,18 +21,23 @@ a5_application.prototype.init=function(applicationName,settings){
   this.applicationName=applicationName;	
   this.settings=settings;
 
+
+  alert(navigator.userAgent); 
   // device model and renderingStyle.
   if (navigator.userAgent.indexOf("iPhone")>=0) {
 	 this.deviceModel=App5.DM_IPHONE;
 	 this.renderStyle=App5.RS_SMALL;
-     this.iphone=true;
+     $('body').get(0).addEventListener('orientationchange', function ()  { self.resize(); })	;
+  }
+  else if (navigator.userAgent.indexOf("iPad")>=0 ) {
+	 this.deviceModel=App5.DM_IPAD;
+	 this.renderStyle=this.settings.renderStyle;
      $('body').get(0).addEventListener('orientationchange', function ()  { self.resize(); })	;
   }
   else {
 	 this.deviceModel=App5.DM_BROWSER;
 	 this.renderStyle=this.settings.renderStyle;
      
-    this.iphone=false;	
 	  $(window).resize(function (evt) {
 	    self.resize();
 
@@ -76,7 +81,7 @@ a5_application.prototype.getFontSize=function() {
 */
 a5_application.prototype.placeScreenOnTop=function()
 {
-    if (this.deviceModel==App5.DM_IPHONE) {
+    if (this.deviceModel==App5.DM_IPHONE || this.deviceModel==App5.DM_IPAD ) {
 		window.setTimeout(function () { 
 			window.scrollTo(0,0);
 
@@ -102,6 +107,19 @@ a5_application.prototype.resize=function(){
 		}
 		else return;
 	 }
+	else if (this.deviceModel==App5.DM_IPAD) {
+	    // 1. find out orientation
+	    var orientation = $(window).width()==1024?"portrait":"landscape" ;
+	    // compare
+	    if (this.orientation != orientation) {
+            var minHeight= orientation=="portrait"?1:1;	
+			this.windowWidth=$(window).width();
+			this.windowHeight=Math.max($(window).height(),minHeight)
+			this.sidebarWidth=240; // TODO...?
+			this.orientation=orientation
+		}
+		else return;
+	}
 	else {
 		this.orientation="portrait";
 		this.windowWidth=520;
@@ -130,7 +148,7 @@ a5_application.prototype.resize=function(){
     var self=this;
     
     // render immediately on iphone. on browser, whait a while to improve performance of resizing.
-    if (this.deviceModel==App5.DM_IPHONE) {
+    if (this.deviceModel==App5.DM_IPHONE || this.deviceModel==App5.DM_IPAD) {
 	   this.render();
 	   self.placeScreenOnTop();
     }
@@ -156,7 +174,7 @@ a5_application.prototype.render=function()
 	} 	
 
     // resize.
-    if (this.deviceModel != App5.DM_IPHONE) {
+    if (this.deviceModel != App5.DM_IPHONE && this.deviceModel != App5.DM_IPAD) {
 	       var width=this.windowWidth;
 	       var height=this.windowHeight;
 		   var top=Math.max( ( $(window).height()-height )/2, 10);
@@ -180,7 +198,7 @@ a5_application.prototype.render=function()
 
 a5_application.prototype.initFirstRendering=function() {
 	    
-    if (this.deviceModel==App5.DM_IPHONE) {
+    if (this.deviceModel==App5.DM_IPHONE || this.deviceModel==App5.DM_IPAD) {
 	   	$('body').html('<div id="app5application" />')
 		$('body').get(0).addEventListener('touchmove',this,false)
 		$('body').get(0).addEventListener('touchstart',this,false)
@@ -392,8 +410,9 @@ a5_application.prototype.animateScreen=function(id,transition) {
 	
 	if (transition==App5.TRANSITION_GOFORWARD) {
 		
-		if (this.deviceModel==App5.DM_IPHONE ) {
+		if (this.deviceModel==App5.DM_IPHONE || this.deviceModel==App5.DM_IPAD ) {
 			var o=App5.$(id).css({ display: 'block' , position: 'absolute', left: '0px' , top: '0px' }).get(0);
+			if (o==null) 
 			o.style.webkitTransitionDuration='0';
 			o.style.webkitTransform='translate(320px,0px)';
 			
@@ -416,7 +435,7 @@ a5_application.prototype.animateScreen=function(id,transition) {
 		
 	}
 	if (transition==App5.TRANSITION_GOBACK) {
-		if (this.deviceModel==App5.DM_IPHONE ) {
+		if (this.deviceModel==App5.DM_IPHONE || this.deviceModel==App5.DM_IPAD ) {
 			var o=App5.$(id).css({ display: 'block' , position: 'absolute', left: '0px' , top: '0px'}).get(0);
 			o.style.webkitTransitionDuration='0';
 			o.style.webkitTransform='translate(-320px,0px)';

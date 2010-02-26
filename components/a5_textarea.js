@@ -82,7 +82,7 @@ a5_textarea.prototype.onfocus=function(event) {
 
 a5_textarea.prototype.onkeyup=function(event) {
 	//console.log("keyup detected "+event.keyCode)
-    if (this.getParentObject("a5_application").deviceModel==App5.DM_IPHONE) {
+    if (this.getParentObject("a5_application").deviceModel==App5.DM_IPHONE ||this.getParentObject("a5_application").deviceModel==App5.DM_IPAD) {
 	  var textarea = App5.$(this.id).get(0);
 	  var newHeight = textarea.scrollHeight;
 	  var currentHeight = textarea.clientHeight;
