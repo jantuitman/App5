@@ -61,5 +61,3 @@ a5_input.prototype.onchange=function () {
 a5_input.prototype.onblur=function () {
 	this.getParentObject("a5_application").placeScreenOnTop();
 }
-
-App5.components['a5_input']=a5_input;

@@ -61,8 +61,3 @@ a5_wiki.prototype.renderContent=function(arr) {
 	arr.push(value);
 	arr.push('</div>');
 }
-
-
-
-App5.components['a5_wiki']=a5_wiki;
-

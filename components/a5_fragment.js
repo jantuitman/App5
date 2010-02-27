@@ -54,5 +54,3 @@ a5_fragment.prototype.toString=function()
 {
 	return this.str;
 }
-
-App5.components['a5_fragment']=a5_fragment;

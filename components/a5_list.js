@@ -85,6 +85,3 @@ a5_list.prototype.update=function() {
 	}
 	
 }
-
-
-App5.components['a5_list']=a5_list;

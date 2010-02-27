@@ -20,6 +20,3 @@ a5_buttonmenu.prototype.render=function(arr) {
 		arr.push('</div>');
 	}
 }
-
-
-App5.components['a5_buttonmenu']=a5_buttonmenu;

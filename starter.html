@@ -19,9 +19,37 @@
 	<script type="text/javascript" src="lib/app5_controller.js"></script>
 	<script type="text/javascript" src="lib/app5_model.js"></script>
 	<script type="text/javascript" src="lib/minitext.js"></script>
-	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript" >
+			
+			function launch() {
+				App5.corePath="";
+				App5.appPath=$("#appselector").val();
+				jQuery.ajax( {
+					url: App5.appPath+'main.js',
+					type: "get",
+					success: function(t) {
+						try
+						{
+							eval(t);
+						}
+						catch(e) {
+							alert('exception when starting '+App5.appPath+'\n\nmessage:'+e.message);
+						}
+					},
+					error: function () {
+						alert("could not load application at "+App5.appPath+", no main.js file found.");
+					}
+				});		
+			}
+	</script>
 </head>
 <body bgcolor="#ccc" style="margin:0;padding:0;height:100%">
-	<div id="app5contents" ></div>
+	<div id="app5contents" >
+		<select id="appselector">
+			<option value="apps/documentation/">documentation</option>
+			<option value="apps/notes/">notes</option>
+		</select>
+		<input type="button" value="launch App!" onclick="launch()" />
+	</div>
 </body>
 </html>

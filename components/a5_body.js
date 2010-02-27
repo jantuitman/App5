@@ -92,5 +92,3 @@ a5_body.prototype.render=function(arr) {
     }
 	arr.push('</div>');
 }
-
-App5.components['a5_body']=a5_body;

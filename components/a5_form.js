@@ -58,5 +58,3 @@ a5_form.prototype.update=function () {
 		el.html(arr.join(''));
 	}
 }
-
-App5.components['a5_form']=a5_form;

@@ -15,6 +15,3 @@ a5_html.prototype.render=function(arr) {
 		arr.push(this.children[0].toString());
 	}
 }
-
-
-App5.components['a5_html']=a5_html;

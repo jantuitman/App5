@@ -42,5 +42,3 @@ a5_header.prototype.render=function(arr) {
 	
 	arr.push('</div>');
 }
-
-App5.components['a5_header']=a5_header;

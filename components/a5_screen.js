@@ -50,7 +50,3 @@ a5_screen.prototype.activate=function(transition) {
 	}
 	this.parent.animateScreen(this.id,transition);
 }
-
-
-
-App5.components['a5_screen']=a5_screen;

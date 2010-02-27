@@ -31,5 +31,5 @@ var settings= {
 
 $(document).ready(function() {
 	
-     	App5.runApplication("App5Documentation","documentation",settings);
+     	App5.runApplication("notes","notes",settings);
 })

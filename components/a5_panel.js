@@ -41,5 +41,3 @@ a5_panel.prototype.renderContent=function(arr) {
 	}
 	arr.push('</div>');
 }
-
-App5.components['a5_panel']=a5_panel;

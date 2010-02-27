@@ -29,6 +29,3 @@ a5_footer.prototype.render=function(arr) {
 	arr.push('</div>');
     arr.push('<div style="height:3000px" >&nbsp;</div>'); // height fixer. makes textarea work right on iphone.
 }
-
-
-App5.components['a5_footer']=a5_footer;

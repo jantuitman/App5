@@ -110,5 +110,3 @@ a5_sidebar.prototype.update=function() {
 	this.renderContents(arr);
 	App5.$(this.id).html(arr.join(""));
 }
-
-App5.components['a5_sidebar']=a5_sidebar;

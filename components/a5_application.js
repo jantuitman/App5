@@ -22,7 +22,6 @@ a5_application.prototype.init=function(applicationName,settings){
   this.settings=settings;
 
 
-  alert(navigator.userAgent); 
   // device model and renderingStyle.
   if (navigator.userAgent.indexOf("iPhone")>=0) {
 	 this.deviceModel=App5.DM_IPHONE;
@@ -58,7 +57,7 @@ a5_application.prototype.generateStyleSheet=function() {
 	var self=this;
 	arr.push('<style id="app5stylesheet" type="text/css">')
 	$.ajax({
-	  url: 'style/app5.css',
+	  url: App5.corePath+'style/app5.css',
 	  responseType: 'text',
 	  	success: function(text) {
 		    text=text.replace(/\[(.*?)\]/g,function (str,p1) { return self.settings.layout[p1];  })
@@ -350,7 +349,7 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 	else
 	{
 		$.ajax({
-			url: 'views/'+viewName+suffix+'.xml',
+			url: App5.appPath+'views/'+viewName+suffix+'.xml',
 			type: 'get',
 			responseType: 'text',
 			success: function(txt) {
@@ -359,12 +358,17 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 					txt=s
 				}				
 				$.ajax({
-					url: 'controllers/'+viewName+suffix+'.js',
+					url: App5.appPath+'controllers/'+viewName+suffix+'.js',
 					type: 'get',
 					success: function (t) {
-						eval(t); // the controller will call the method .Controller in App5
-						         // which will call the addController method with will store the controller of the view
-						         // inside the this.views property. 
+						
+						try
+						{
+							eval('( function (App5) { \n'+t+'\n} )(App5)');
+						}
+						catch(e) {
+							App5.error('error in controller:\n'+e.message);	
+						}
 						
 						// so now we can initialise the controller with the view text.
 						self.views[viewName].init(txt, function () {
@@ -474,10 +478,15 @@ a5_application.prototype.loadModel=function(name,success,failure)
 	else
 	{
 		$.ajax({
-			url: 'models/'+name+'.js',
+			url: App5.appPath+'models/'+name+'.js',
 			type: 'get',
 			success: function(txt) {
-				eval(txt);
+				try {
+					eval('(function (App5) { \n'+txt+'\n App5.models["'+name+'"]='+name+' ;\n}\n)(App5)');
+				}
+				catch(e) {
+					App5.error('error while loading model '+name+'\nmessage: '+e.message);
+				}
 				self.models[name]=new App5.models[name]();
 				if (self.models[name].init) {
 					self.models[name].init(name,success,failure);
@@ -493,9 +502,4 @@ a5_application.prototype.loadModel=function(name,success,failure)
 	}
 	
 }
-
-
-
-
-App5.components['a5_application']=a5_application;
 

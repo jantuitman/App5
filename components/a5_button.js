@@ -15,6 +15,3 @@ a5_button.prototype.render=function(arr) {
 	
 	arr.push('<input type="button" class="button" '+App5.writeId(this.id)+' value="'+this.getAttribute("label")+'" />')
 }
-
-
-App5.components['a5_button']=a5_button;

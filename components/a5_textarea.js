@@ -101,5 +101,3 @@ a5_textarea.prototype.onblur=function () {
 	this.getParentObject("a5_application").placeScreenOnTop();
 	this.update();
 }
-
-App5.components['a5_textarea']=a5_textarea;
