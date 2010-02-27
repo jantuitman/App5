@@ -7,7 +7,7 @@ function documentation()
    },
    {
       "title":"Supported devices",
-      "text":"App5 is supported in the the following desktop browsers (currently):\u000a\u000a|  IE | not supported |\u000a| Firefox | supported |\u000a| Safari | supported |\u000a| Google chrome | works apparently? support coming soon  |\u000a| Opera | status unknown. not supported |\u000a\u000aThe following mobile scenarios are working:\u000a\u000a| iPhone/iPod web browser | supported |\u000a| iPhone embedded (using PhoneGap) | supported | \u000a| iPad (simulator) web browser | support coming soon |\u000a| iPad(simulator) embedded | support coming soon |\u000a\u000aOther phone OS'es are not supported yet. \u000a"
+      "text":"App5 is supported in the the following desktop browsers (currently):\u000a\u000a|  IE | not supported |\u000a| Firefox | supported |\u000a| Safari | supported |\u000a| Google chrome | works apparently? support coming soon  |\u000a| Opera | status unknown. not supported |\u000a\u000aThe following mobile scenarios are working:\u000a\u000a| iPhone/iPod web browser | supported |\u000a| iPhone embedded (using PhoneGap) | supported |\u000a| iPad (simulator) web browser | supported |\u000a| iPad(simulator) embedded | support coming soon |\u000a\u000aOther phone OS'es are not supported yet. \u000a"
    },
    {
       "title":"Concepts",
