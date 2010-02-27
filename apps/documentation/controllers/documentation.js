@@ -22,7 +22,7 @@ App5.Controller('documentation',{
 	,
 	
 	onclick_notesButton: function(evt) {
-		App5.pushView('notes');
+		window.location='../notes/index.html';
 	}
 
 		
