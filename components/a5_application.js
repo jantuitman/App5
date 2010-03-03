@@ -142,7 +142,7 @@ a5_application.prototype.resize=function(){
 	
 	} 
     
-    this.bodyHeight=this.windowHeight-2*(this.getFontSize()+10);    
+    this.bodyHeight=this.windowHeight-2*(40);    
     this.isDirty=true;
     var self=this;
     

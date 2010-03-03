@@ -36,7 +36,7 @@ a5_sidebar.prototype.onclick_backbutton=function () {
 a5_sidebar.prototype.render=function(arr) {
 
 	var fontsize=this.getParentObject("a5_application").getFontSize();
-	var headerheight=fontsize+10; 
+	var headerheight=40; 
 	var application=this.getParentObject('a5_application');
 	var totalHeight=headerheight+application.bodyHeight;
 	arr.push('<div '+App5.writeId(this.id)+' style="float:left;width:'+application.sidebarWidth+'px;height:'+totalHeight+'px" class="app5sidebar" >');
@@ -49,7 +49,7 @@ a5_sidebar.prototype.render=function(arr) {
 a5_sidebar.prototype.renderContents=function(arr) {
 	
 	var fontsize=this.getParentObject("a5_application").getFontSize();
-	var headerheight=fontsize+10; 
+	var headerheight=40; 
 	var application=this.getParentObject('a5_application');
 	var totalHeight=headerheight+application.bodyHeight;
 	arr.push('<div  style="height:'+headerheight+'px;" class="app5barstyle" >');

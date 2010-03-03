@@ -35,8 +35,23 @@
 	background:-webkit-gradient(linear,0 0, 0 100%,from([buttonColor2]),to([buttonColor]),color-stop(0.4,[buttonColor]));
 	background:-moz-linear-gradient(top, [buttonColor2],[buttonColor] 40%, [buttonColor])
 	display: inline-block;
+	min-height:36px;
 	
 }
+
+#app5application .app5barstyle input.iconbutton {
+		font-size:16px;
+		padding: 2px 3px 2px 3px;
+		margin: 2px 3px 2px 3px;
+		color: [toolbarTextColor];
+		border: none;
+		background:transparent;
+        background-position:center center;
+		display: inline-block;
+		width:36px;
+		height:36px;
+}
+
 
 
 #app5application .app5list li {

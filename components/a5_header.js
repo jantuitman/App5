@@ -17,8 +17,8 @@ a5_header.prototype.onclick_backbutton=function () {
 
 a5_header.prototype.render=function(arr) {
 
-	var fontsize=this.getParentObject("a5_application").getFontSize();
-	var height=fontsize+10; 
+	//var fontsize=this.getParentObject("a5_application").getFontSize();
+	var height=40; 
 	arr.push('<div '+App5.writeId(this.id)+' style="height:'+height+'px;" class="app5barstyle" >');
 	// add back button.
 	var backItem=null;
