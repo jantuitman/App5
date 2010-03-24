@@ -80,7 +80,7 @@ a5_sidebar.prototype.renderBody=function(arr) {
         
 		var overflow="hidden";
 		if (this.getParentObject("a5_application").deviceModel == App5.DM_BROWSER) {
-			overflow="scroll"
+			overflow="auto"
 		}
 		
 		arr.push('<div '+App5.writeId(this)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' class="app5windowstyle" style="height:'+height+'px;overflow-y:'+overflow+';" >');		

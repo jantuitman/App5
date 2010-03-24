@@ -71,7 +71,7 @@ a5_body.prototype.render=function(arr) {
     if (this.getAttribute('scrollwrapping') == "true") {
 		var scrollBar='hidden';
 		if (this.getParentObject("a5_application").deviceModel==App5.DM_BROWSER) {
-			scrollBar='scroll';
+			scrollBar='auto';
 		}
 		arr.push('<div '+App5.writeId(this)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' style="background-color:white;padding-left:5px;padding-right:10px;height:'+height+'px;overflow-y:'+scrollBar+';" >');		
 		arr.push('<div '+App5.writeId(this,'scrollpane')+'>');

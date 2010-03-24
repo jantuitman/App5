@@ -23,7 +23,7 @@ var settings= {
 */
 , preferred_sizes: [
 	{ minX: 800 , minY: 1,  width:600, height: 500 , sidebar: 200  },
-	{ minX: 1200, minY: 1,  width:900, height: 500 , sidebar: 275  }
+	{ minX: 1200, minY: 1,  width:900, height: 50000 , sidebar: 275  }
   ]
 	, mode: "debug"	
 };
