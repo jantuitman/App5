@@ -31,14 +31,15 @@ a5_textarea.prototype.update=function()
 }
 
 a5_textarea.prototype.renderContent=function(arr) {
-	var form=this.getParentObject("a5_form");
+	var form=this.getParentObject();
 	arr.push('<label for="'+App5.writeId(this,null,true)+'" >')
 	arr.push(this.attributes['label']);
 	arr.push('</label>');
 	var value='';
-	var key=form.keys[App5.shortId(this.id)];
+	var keys=form.getKeys();
+	var key=keys[App5.shortId(this.id)];
 	if (key && form.model) {
-		value=form.model.getValueForPath(form.getKeyPath(key));
+		value=App5.wrapModel(form.model).getValueForPath(form.getKeyPath(key));
 		if (!value) value='';
 	} 
     var nLines=0; var pos=0;
@@ -66,9 +67,10 @@ a5_textarea.prototype.renderContent=function(arr) {
 a5_textarea.prototype.onchange=function () {
 	var value=App5.$(this.id).get(0).value;
 	var form=this.getParentObject();
-	var key=form.keys[App5.shortId(this.id)];
+	var keys=form.getKeys();
+	var key=keys[App5.shortId(this.id)];
 	if (key && form.model) {
-		form.model.setValueForPath(form.getKeyPath(key),value);
+		App5.wrapModel(form.model).setValueForPath(form.getKeyPath(key),value);
 	} 
 	
 }
