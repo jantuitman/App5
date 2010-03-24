@@ -16,6 +16,8 @@ function a5_panel(id)
 a5_panel.prototype=new App5Component();
 
 
+/*** mix-in for data binding */
+
 a5_panel.prototype.getKeys=function () {
 	if (this.subid !=null) {
 		return this.getParentObject().getKeys();
@@ -30,6 +32,23 @@ a5_panel.prototype.setKeys=function(keys) {
 		this.children[i].update();
 	}
 }
+a5_panel.prototype.getModelValueFor=function (id) {
+	var keys=this.getKeys();
+	var key=keys[App5.shortId(id)];
+	if (key!=null && this.model != null) {
+		return App5.wrapModel(this.model).getValueForPath(this.getKeyPath(key));
+	}
+	return null;
+}
+
+a5_panel.prototype.setModelValueFor=function (id,value) {
+	var keys=this.getKeys();
+	var key=keys[App5.shortId(id)];
+	if (key!=null && this.model != null) {
+		App5.wrapModel(this.model).setValueForPath(key,value);
+	}
+}
+
 
 
 a5_panel.prototype.render=function(arr)

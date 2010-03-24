@@ -36,17 +36,15 @@ a5_textarea.prototype.renderContent=function(arr) {
 	arr.push(this.attributes['label']);
 	arr.push('</label>');
 	var value='';
-	var keys=form.getKeys();
-	var key=keys[App5.shortId(this.id)];
-	if (key && form.model) {
-		value=App5.wrapModel(form.model).getValueForPath(form.getKeyPath(key));
-		if (!value) value='';
-	} 
+	var value=form.getModelValueFor(this.id);
+	if (value==null) value='';
+
     var nLines=0; var pos=0;
     while (value.indexOf("\n",pos)>=0) {
 	   nLines++;
 	   pos=value.indexOf("\n",pos)+1;
     }  
+
 	arr.push('<textarea '+App5.writeId(this)+' rows="5" ');
 	arr.push(App5.writeCaptureHandlers(['change','focus','blur',"keyup"]));
 	arr.push(' >');
@@ -67,12 +65,7 @@ a5_textarea.prototype.renderContent=function(arr) {
 a5_textarea.prototype.onchange=function () {
 	var value=App5.$(this.id).get(0).value;
 	var form=this.getParentObject();
-	var keys=form.getKeys();
-	var key=keys[App5.shortId(this.id)];
-	if (key && form.model) {
-		App5.wrapModel(form.model).setValueForPath(form.getKeyPath(key),value);
-	} 
-	
+	form.setModelValueFor(this.id,value);
 }
 
 a5_textarea.prototype.onfocus=function(event) {

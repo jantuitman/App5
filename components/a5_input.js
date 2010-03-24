@@ -37,14 +37,8 @@ a5_input.prototype.renderContent=function(arr) {
 	arr.push(this.attributes['label']);
 	arr.push('</label>');
 	arr.push('<input type="text" '+App5.writeId(this));
-	var value='';
-	var keys=form.getKeys();
-	var key=keys[App5.shortId(this.id)];
-	if (key && form.model) {
-		//console.log("keypath",form.getKeyPath(key));
-		value=App5.wrapModel(form.model).getValueForPath(form.getKeyPath(key));
-		//console.log(form.model,value);
-	} 
+	var value=form.getModelValueFor(this.id);
+	if (value==null) value='';
 	arr.push(' value="'+value+'" ');
 	arr.push(App5.writeCaptureHandlers(['change','blur']));
 	arr.push('/>');
@@ -53,11 +47,7 @@ a5_input.prototype.renderContent=function(arr) {
 a5_input.prototype.onchange=function () {
 	var value=App5.$(this.id).get(0).value;
 	var form=this.getParentObject();
-	var keys=form.getKeys();
-	var key=keys[App5.shortId(this.id)];
-	if (key && form.model) {
-		App5.wrapModel(form.model).setValueForPath(form.getKeyPath(key),value);
-	} 
+	form.setModelValueFor(this.id,value);
 }
 
 a5_input.prototype.onblur=function () {
