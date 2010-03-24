@@ -68,6 +68,7 @@ App5.Controller('documentation',{
 	onclick_editButton: function (event) {
 		//console.log("PANEL 1 display",panel1)
 		
+		console.log("Edit button clicked");
 		var panel1=App5.get("panel1");
 		panel1.setAttribute("display","none");
 		var panel2=App5.get("panel2");

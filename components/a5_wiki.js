@@ -17,7 +17,7 @@ a5_wiki.prototype.setModel=function(model) {
 	if (this.model !=null) this.model.removeListener(this);
 	this.model=model;
 	this.model.addListener(this);
-	this.update();
+	App5.markUpdate(this);
 }
 
 

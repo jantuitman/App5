@@ -150,6 +150,7 @@ a5_application.prototype.resize=function(){
     if (this.deviceModel==App5.DM_IPHONE || this.deviceModel==App5.DM_IPAD) {
 	   this.render();
 	   self.placeScreenOnTop();
+		App5.processUpdates();
     }
     else {
 	    window.setTimeout(function () {
@@ -157,6 +158,7 @@ a5_application.prototype.resize=function(){
 			self.render();
 			self.placeScreenOnTop();
 			self.isDirty=false;	
+			App5.processUpdates();
 	    },50);
     } 	 
 	    
@@ -295,6 +297,7 @@ a5_application.prototype.dispatchEventForId=function(e,s) {
 			
 			
 		}
+		App5.processUpdates();
 	}
 	else return true;
 }
@@ -380,6 +383,10 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 						self.views[viewName].init(txt, function () {
 							self.views[viewName].activate(data,transition,location);
 							self.currentView=viewName;
+							// after a view is loaded a processUpdates is needed.
+							// because this is an asynchronous process and the updates for the event that triggered
+							// this may already be processed. 
+							App5.processUpdates();
 							self.placeScreenOnTop();
 						},
 						function (errorText) { 

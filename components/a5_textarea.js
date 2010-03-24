@@ -94,5 +94,5 @@ a5_textarea.prototype.onkeyup=function(event) {
 
 a5_textarea.prototype.onblur=function () {
 	this.getParentObject("a5_application").placeScreenOnTop();
-	this.update();
+	App5.markUpdate(this);
 }
