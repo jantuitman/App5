@@ -35,7 +35,7 @@ a5_wiki.prototype.update=function()
 
 a5_wiki.prototype.render=function(arr)
 {
-	arr.push('<div '+App5.writeId(this.id,'wrapper')+' class="app5wiki" >')
+	arr.push('<div '+App5.writeId(this,'wrapper')+' class="app5wiki" >')
 	this.renderContent(arr);
 	arr.push('</div>')
 }
@@ -49,7 +49,7 @@ a5_wiki.prototype.renderContent=function(arr) {
 		title=this.model.getValueForPath(this.getKeyPath('title'));
 		value=this.model.getValueForPath(this.getKeyPath('text'));
 	}
-	arr.push('<div '+App5.writeId(this.id)+ '  style="padding-left:10px;" >');
+	arr.push('<div '+App5.writeId(this)+ '  style="padding-left:10px;" >');
 	var value='';
 	if (this.model) {
 		var title=this.model.getValueForPath(this.getKeyPath('title'));

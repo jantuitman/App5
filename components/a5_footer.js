@@ -15,7 +15,7 @@ a5_footer.prototype.render=function(arr) {
 
 	//var height=this.getParentObject("a5_application").getFontSize()+10;
 	var height=40;
-	arr.push('<div '+App5.writeId(this.id)+'  class="app5barstyle" style="height:'+height+'px;">');
+	arr.push('<div '+App5.writeId(this)+'  class="app5barstyle" style="height:'+height+'px;">');
 	var seperators=0;
 	for (var i=0;i<this.children.length;i++) {
 		if (this.children[i].name=="a5_seperator") {

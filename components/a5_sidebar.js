@@ -39,7 +39,7 @@ a5_sidebar.prototype.render=function(arr) {
 	var headerheight=40; 
 	var application=this.getParentObject('a5_application');
 	var totalHeight=headerheight+application.bodyHeight;
-	arr.push('<div '+App5.writeId(this.id)+' style="float:left;width:'+application.sidebarWidth+'px;height:'+totalHeight+'px" class="app5sidebar" >');
+	arr.push('<div '+App5.writeId(this)+' style="float:left;width:'+application.sidebarWidth+'px;height:'+totalHeight+'px" class="app5sidebar" >');
 
 	this.renderContents(arr);
 
@@ -60,7 +60,7 @@ a5_sidebar.prototype.renderContents=function(arr) {
 		currentItem=application.viewStack[application.viewStack.length-1]
 		// modal views do not need a back button, normal views do.
 		if (currentItem.viewMode==App5.VM_NORMAL  || currentItem.viewMode==App5.VM_SIDEBAR ) {
-			arr.push('<input type="button"   '+App5.writeId(this.id,'backbutton')+' class="button" value="&lt;&nbsp;'+backItem.viewName+'"/>')
+			arr.push('<input type="button"   '+App5.writeId(this,'backbutton')+' class="button" value="&lt;&nbsp;'+backItem.viewName+'"/>')
 		}
 		
 	}
@@ -83,15 +83,15 @@ a5_sidebar.prototype.renderBody=function(arr) {
 			overflow="scroll"
 		}
 		
-		arr.push('<div '+App5.writeId(this.id)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' class="app5windowstyle" style="height:'+height+'px;overflow-y:'+overflow+';" >');		
-		arr.push('<div '+App5.writeId(this.id,'scrollpane')+'>');
+		arr.push('<div '+App5.writeId(this)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' class="app5windowstyle" style="height:'+height+'px;overflow-y:'+overflow+';" >');		
+		arr.push('<div '+App5.writeId(this,'scrollpane')+'>');
 		if (this.getParentObject("a5_application").deviceModel== App5.DM_IPHONE || this.getParentObject("a5_application").deviceModel== App5.DM_IPAD ) {
 			this.scrollhandler=new IPhoneScrollHandler();
 		}
 	}
 	else
 	{
-		arr.push('<div '+App5.writeId(this.id)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' class="app5windowstyle" style="min-height:'+height+'px;" >');		
+		arr.push('<div '+App5.writeId(this)+App5.writeCaptureHandlers(['touchstart','touchend','touchmove'])+' class="app5windowstyle" style="min-height:'+height+'px;" >');		
 
 	}
 	for (var i=0;i<this.children.length;i++) {

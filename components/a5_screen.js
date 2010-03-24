@@ -16,7 +16,7 @@ a5_screen.prototype.render=function(replace)
 	var width=this.getParentObject("a5_application").windowWidth;
 	var sidebarWidth=this.getParentObject("a5_application").sidebarWidth;
 	//if (width==null) width=320;
-	arr.push('<div '+App5.writeId(this.id)+' style="display:'+(replace?'block':'none')+';width:'+width+'px">')
+	arr.push('<div '+App5.writeId(this)+' style="display:'+(replace?'block':'none')+';width:'+width+'px">')
 	var sidebar=this.getChildObject('a5_sidebar');
 	if (sidebar != null ) {
 		this.getChildObject('a5_sidebar').render(arr);

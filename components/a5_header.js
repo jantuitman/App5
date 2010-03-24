@@ -19,7 +19,7 @@ a5_header.prototype.render=function(arr) {
 
 	//var fontsize=this.getParentObject("a5_application").getFontSize();
 	var height=40; 
-	arr.push('<div '+App5.writeId(this.id)+' style="height:'+height+'px;" class="app5barstyle" >');
+	arr.push('<div '+App5.writeId(this)+' style="height:'+height+'px;" class="app5barstyle" >');
 	// add back button.
 	var backItem=null;
 	var application=this.getParentObject('a5_application');
@@ -28,7 +28,7 @@ a5_header.prototype.render=function(arr) {
 		currentItem=application.viewStack[application.viewStack.length-1]
 		// modal views do not need a back button, normal views do.
 		if (currentItem.viewMode==App5.VM_NORMAL) {
-			arr.push('<input type="button"   '+App5.writeId(this.id,'backbutton')+' class="button" value="&lt;&nbsp;'+backItem.viewName+'"/>')
+			arr.push('<input type="button"   '+App5.writeId(this,'backbutton')+' class="button" value="&lt;&nbsp;'+backItem.viewName+'"/>')
 		}
 		
 	}

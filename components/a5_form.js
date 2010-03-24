@@ -25,6 +25,12 @@ a5_form.prototype.setModel=function(model) {
 
 }
 
+a5_form.prototype.getKeys=function () {
+	if (this.subid !=null) {
+		return this.getParentObject().getKeys();
+	}
+	else return this.keys;
+}
 
 
 a5_form.prototype.setKeys=function(keys) {
@@ -39,7 +45,7 @@ a5_form.prototype.setKeys=function(keys) {
 a5_form.prototype.render=function(arr) {
 	arr.push('<div style="padding-top:10px;padding-bottom:10px">')
 	var width=this.getAreaObject().getInnerWidth()-40;
-	arr.push('<fieldset '+App5.writeId(this.id)+' style="width:'+width+'px">');
+	arr.push('<fieldset '+App5.writeId(this)+' style="width:'+width+'px">');
 	this.renderContents(arr);
 	arr.push('</fieldset></div>');
 }

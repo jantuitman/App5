@@ -4,10 +4,11 @@ function a5_panel(id)
 	this.name='a5_panel';
 	//this.childType='untyped';
 	this.childType='unordered';
-	this.childsAllowed=['a5_buttonmenu','a5_html','a5_list','a5_form','a5_wiki','a5_panel'];
+	this.childsAllowed=['a5_buttonmenu','a5_html','a5_list','a5_form','a5_wiki','a5_panel','a5_icon','a5_label'];
 	this.children=[];
 	this.attributeDefinitions=[{ name:'display'}];
 	this.attributes={};
+	this.attributes.display="block";
 	this.scrollhandler=null; 
 	
 }
@@ -15,9 +16,25 @@ function a5_panel(id)
 a5_panel.prototype=new App5Component();
 
 
+a5_panel.prototype.getKeys=function () {
+	if (this.subid !=null) {
+		return this.getParentObject().getKeys();
+	}
+	else return this.keys;
+}
+
+
+a5_panel.prototype.setKeys=function(keys) {
+	this.keys=keys;
+	for (var i=0;i<this.children.length;i++) {
+		this.children[i].update();
+	}
+}
+
+
 a5_panel.prototype.render=function(arr)
 {
-	arr.push('<div '+App5.writeId(this.id,'wrapper')+' >')
+	arr.push('<div '+App5.writeId(this,'wrapper')+' >')
 	this.renderContent(arr);
 	arr.push('</div>')
 }

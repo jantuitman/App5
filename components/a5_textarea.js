@@ -14,7 +14,7 @@ a5_textarea.prototype=new App5Component();
 
 a5_textarea.prototype.render=function(arr)
 {
-	arr.push('<div '+App5.writeId(this.id,'wrapper')+' >')
+	arr.push('<div '+App5.writeId(this,'wrapper')+' >')
 	this.renderContent(arr);
 	arr.push('</div>')
 }
@@ -32,7 +32,7 @@ a5_textarea.prototype.update=function()
 
 a5_textarea.prototype.renderContent=function(arr) {
 	var form=this.getParentObject("a5_form");
-	arr.push('<label for="'+App5.writeId(this.id,null,true)+'" >')
+	arr.push('<label for="'+App5.writeId(this,null,true)+'" >')
 	arr.push(this.attributes['label']);
 	arr.push('</label>');
 	var value='';
@@ -46,18 +46,18 @@ a5_textarea.prototype.renderContent=function(arr) {
 	   nLines++;
 	   pos=value.indexOf("\n",pos)+1;
     }  
-	arr.push('<textarea '+App5.writeId(this.id)+' rows="5" ');
+	arr.push('<textarea '+App5.writeId(this)+' rows="5" ');
 	arr.push(App5.writeCaptureHandlers(['change','focus','blur',"keyup"]));
 	arr.push(' >');
 	arr.push(value);
 	arr.push('</textarea>');	
 	/*
 	////console.log("we have "+(nLines+1)+" rows!");
-	arr.push('<pre class="app5textarea" '+App5.writeId(this.id,'readview')+ '>')
+	arr.push('<pre class="app5textarea" '+App5.writeId(this,'readview')+ '>')
 	arr.push(value);
 	arr.push('</pre>')
 	*/
-	//arr.push('<textarea '+App5.writeId(this.id)+' rows="'+(nLines+1)+'" ');
+	//arr.push('<textarea '+App5.writeId(this)+' rows="'+(nLines+1)+'" ');
 	//arr.push(App5.writeCaptureHandlers(['change','blur',"keydown"]));
 	//arr.push(' >');
 	//arr.push('</textarea>');
@@ -65,7 +65,7 @@ a5_textarea.prototype.renderContent=function(arr) {
 
 a5_textarea.prototype.onchange=function () {
 	var value=App5.$(this.id).get(0).value;
-	var form=this.getParentObject("a5_form");
+	var form=this.getParentObject();
 	var key=form.keys[App5.shortId(this.id)];
 	if (key && form.model) {
 		form.model.setValueForPath(form.getKeyPath(key),value);

@@ -3,7 +3,7 @@ function a5_list(id)
 	this.id=id;
 	this.name='a5_list';
 	this.childType='unordered';
-	this.childsAllowed=[];
+	this.childsAllowed=['a5_test','a5_panel'];
 	this.children=[];
 	this.keys={ title: 'title'};
 	this.attributeDefinitions=[{ name:'arrows'}];
@@ -21,9 +21,21 @@ a5_list.prototype.setModel=function(model) {
 	this.update();
 }
 
+a5_list.prototype.getKeys=function () {
+	if (this.subid !=null) {
+		return this.getParentObject().getKeys();
+	}
+	else return this.keys;
+}
+
+
 a5_list.prototype.setKeys=function(keys) {
 	this.keys=keys;
+	for (var i=0;i<this.children.length;i++) {
+		this.children[i].update();
+	}
 }
+
 
 a5_list.prototype.onclick=function(event)
 {
@@ -53,7 +65,7 @@ a5_list.prototype.onclick=function(event)
 a5_list.prototype.render=function(arr) {
 
 	var height=this.getParentObject("a5_application").getFontSize()+10;
-	arr.push('<ul '+App5.writeId(this.id)+' class="app5list" '+App5.writeCaptureHandlers(['click'])+' >');
+	arr.push('<ul '+App5.writeId(this)+' class="app5list" '+App5.writeCaptureHandlers(['click'])+' >');
 	this.renderContents(arr);
 	arr.push('</ul>');
 }
@@ -62,16 +74,47 @@ a5_list.prototype.renderContents=function(arr) {
 	
 	if (this.model) {
 		var listArray=this.model.getValueForPath(this.getKeyPath(null));
-		for (var i=0;i<listArray.length;i++) {
-			arr.push('<li '+App5.writeId(this.id,''+i)+'>');
-			if (this.keys.title) {
-				var value=this.model.getValueForPath(this.getKeyPath(i,'title'));
-				arr.push(value);
+		if (this.children.length>0 ) {
+			// render via child nodes. 
+			// 1. remove all children >1 and remove listeners.
+			if (this.children.length>1 ) {
+				for (var j=this.children.length-1; j>1; j--) {
+					this.children[j].detach();
+					this.children[j]=null;
+				}
+				// TODO: check lenth of array.
 			}
-			if (this.getAttribute('arrows')) {
-				arr.push('<span class="app5listarrow">&gt;</span>');
+			//debugger;
+			// 2. clone child 1 as needed.
+			for (var i=0; i<listArray.length;i++) {
+				if (i==0) {
+					this.children[i].subid='0';
+				}
+				if (i>0) {
+					this.children[i]=this.children[0].clone(i);
+				}
+				this.children[i].setModel(this.model.getValueForPath(this.getKeyPath(i)));
 			}
-			arr.push('</li>');
+			// 3. render
+			for (var i=0; i<listArray.length;i++) {
+				arr.push('<li '+App5.writeId(this,''+i)+'>');
+				this.children[i].render(arr);
+				arr.push('</li>');
+			}
+		}
+		else {
+			for (var i=0;i<listArray.length;i++) {
+				arr.push('<li '+App5.writeId(this,''+i)+'>');
+			
+				if (this.keys.title) {
+					var value=this.model.getValueForPath(this.getKeyPath(i,'title'));
+					arr.push(value);
+				}
+				if (this.getAttribute('arrows')) {
+					arr.push('<span class="app5listarrow">&gt;</span>');
+				}
+				arr.push('</li>');
+			}
 		}
 	}	
 }

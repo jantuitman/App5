@@ -15,7 +15,7 @@ a5_buttonmenu.prototype.render=function(arr) {
 
 	var height=40;
 	for (var i=0;i<this.children.length;i++) {
-		arr.push('<div '+App5.writeId(this.id)+' style="height:'+height+'px;width:100%">');
+		arr.push('<div '+App5.writeId(this)+' style="height:'+height+'px;width:100%">');
 		this.children[i].render(arr);
 		arr.push('</div>');
 	}

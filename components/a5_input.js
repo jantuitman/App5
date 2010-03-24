@@ -14,7 +14,7 @@ a5_input.prototype=new App5Component();
 
 a5_input.prototype.render=function(arr)
 {
-	arr.push('<div '+App5.writeId(this.id,'wrapper')+' >')
+	arr.push('<div '+App5.writeId(this,'wrapper')+' >')
 	this.renderContent(arr);
 	arr.push('</div>')
 }
@@ -32,11 +32,11 @@ a5_input.prototype.update=function()
 }
 
 a5_input.prototype.renderContent=function(arr) {
-	var form=this.getParentObject("a5_form");
-	arr.push('<label for="'+App5.writeId(this.id,null,true)+'" >')
+	var form=this.getParentObject();
+	arr.push('<label for="'+App5.writeId(this,null,true)+'" >')
 	arr.push(this.attributes['label']);
 	arr.push('</label>');
-	arr.push('<input type="text" '+App5.writeId(this.id));
+	arr.push('<input type="text" '+App5.writeId(this));
 	var value='';
 	var key=form.keys[App5.shortId(this.id)];
 	if (key && form.model) {

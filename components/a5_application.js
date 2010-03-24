@@ -260,7 +260,13 @@ a5_application.prototype.captureEvent=function(e) {
 
 a5_application.prototype.dispatchEventForId=function(e,s) {
 	if (s.indexOf('_xAPP5x_')>=0) {
+        if (console) console.log('component '+s);
+		var subId=null;
 		var app5Id=s.substr(0,s.indexOf('_xAPP5x_'));
+		if (app5Id.indexOf('_xSUBx_')>=0) {
+			subId=app5Id.substr(app5Id.indexOf('_xSUBx_')+7,app5Id.length);
+			app5Id=app5Id.substr(0,app5Id.indexOf('_xSUBx_'));
+		}
 		var suffix=s.substr(s.indexOf('_xAPP5x_')+8,s.length);
 		var shortSuffix='';
 		if (suffix.length>0) {
@@ -269,20 +275,20 @@ a5_application.prototype.dispatchEventForId=function(e,s) {
 				shortSuffix='_'+suffix.substr(suffix.indexOf("_"),suffix.length);
 			}
 		}
+		var eventType=e.type;
+        if (console) console.log('id: '+app5Id+' event: on'+eventType+shortSuffix);
 		if (App5.ids[app5Id]) {
-			var eventType=e.type;
 			//if (eventType=='touchstart') eventType='click';
-
-			// first check if the component handles it's own event.
+ 			// first check if the component handles it's own event.
 			if (App5.ids[app5Id]['on'+eventType+shortSuffix]) {
-				App5.ids[app5Id]['on'+eventType+shortSuffix](e);
+				App5.ids[app5Id]['on'+eventType+shortSuffix](e,subId);
 			}
 			else {
 				// the component does not handle its event. so perhaps the controller has a handler.
 				var controller=this.views[this.currentView];
 				
 				if (controller != null && controller['on'+eventType+'_'+App5.shortId(app5Id)+shortSuffix]) {
-					controller['on'+eventType+'_'+App5.shortId(app5Id)+shortSuffix](e);
+					controller['on'+eventType+'_'+App5.shortId(app5Id)+shortSuffix](e,subId);
 				}
 			}
 				
