@@ -43,6 +43,7 @@ a5_form.prototype.setKeys=function(keys) {
 
 a5_form.prototype.getModelValueFor=function (id) {
 	var keys=this.getKeys();
+	if (keys==null) return null;
 	var key=keys[App5.shortId(id)];
 	console.log(" key ="+key)
 	if (key!=null && this.model != null) {

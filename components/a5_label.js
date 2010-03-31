@@ -15,7 +15,6 @@ a5_label.prototype=new App5Component();
 
 a5_label.prototype.render=function(arr) {
 	var form=this.getParentObject();
-	
 	var value=form.getModelValueFor(this.id);
 	if (value==null) value='';
     arr.push("<span "+App5.writeId(this)+" >"+value+"</span>");

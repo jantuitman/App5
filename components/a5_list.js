@@ -15,9 +15,11 @@ a5_list.prototype=new App5Component();
 
 a5_list.prototype.setModel=function(model) {
 	this.model=model;
-	if (this.model !=null) this.model.removeListener(this);
-	this.model=model;
-	if (this.model !=null) this.model.addListener(this);
+	if (this.model !=null && this.model.removeListener) this.model.removeListener(this);
+	if (model != null) {
+		this.model=App5.wrapModel(model);
+		this.model.addListener(this);
+	}
 	App5.markUpdate(this);
 }
 
@@ -73,7 +75,9 @@ a5_list.prototype.render=function(arr) {
 a5_list.prototype.renderContents=function(arr) {
 	
 	if (this.model) {
-		var listArray=this.model.getValueForPath(this.getKeyPath(null));
+		var model=App5.wrapModel(this.model);
+		var listArray=model.getValueForPath(this.getKeyPath(null));
+		console.log("a5_list render listArray",listArray);
 		if (this.children.length>0 ) {
 			// render via child nodes. 
 			// 1. remove all children >1 and remove listeners.
@@ -93,7 +97,7 @@ a5_list.prototype.renderContents=function(arr) {
 				if (i>0) {
 					this.children[i]=this.children[0].clone(i);
 				}
-				this.children[i].setModel(this.model.getValueForPath(this.getKeyPath(i)));
+				this.children[i].setModel(model.getValueForPath(this.getKeyPath(i)));
 			}
 			// 3. render
 			for (var i=0; i<listArray.length;i++) {
@@ -107,7 +111,7 @@ a5_list.prototype.renderContents=function(arr) {
 				arr.push('<li '+App5.writeId(this,''+i)+'>');
 			
 				if (this.keys.title) {
-					var value=this.model.getValueForPath(this.getKeyPath(i,'title'));
+					var value=model.getValueForPath(this.getKeyPath(i,'title'));
 					arr.push(value);
 				}
 				if (this.getAttribute('arrows')) {

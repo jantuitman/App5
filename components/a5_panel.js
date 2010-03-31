@@ -34,6 +34,8 @@ a5_panel.prototype.setKeys=function(keys) {
 }
 a5_panel.prototype.getModelValueFor=function (id) {
 	var keys=this.getKeys();
+	if (keys==null) return null;
+	console.log("keys",keys,"subid",this.subid);
 	var key=keys[App5.shortId(id)];
 	if (key!=null && this.model != null) {
 		return App5.wrapModel(this.model).getValueForPath(this.getKeyPath(key));

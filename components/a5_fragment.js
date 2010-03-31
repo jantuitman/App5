@@ -3,17 +3,20 @@
   a5_fragment is a very special class, it is not a component but it is used for untyped xml.
   the xml is stored as a string. 
 */
-function a5_fragment(element)
+function a5_fragment(id)
 {
-   this.str=this.elementToString(element);	
+   this.id=id;
    this.name="a5_fragment";
    this.children=[];
-   this.attributes={}; 
+   this.attributes={ str: "" };
+   this.attributeDefinitions=[{ name: "str"}]; 
   return this;
 }
 
+a5_fragment.prototype=new App5Component();
+
 a5_fragment.prototype.addElement=function(el) {
-	this.str+=this.elementToString(el);
+	this.attributes.str+=this.elementToString(el);
 }
 
 a5_fragment.prototype.elementToString=function(el)
@@ -52,5 +55,5 @@ a5_fragment.prototype.escape=function(s)
 
 a5_fragment.prototype.toString=function()
 {
-	return this.str;
+	return this.attributes.str;
 }

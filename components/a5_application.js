@@ -262,7 +262,6 @@ a5_application.prototype.captureEvent=function(e) {
 
 a5_application.prototype.dispatchEventForId=function(e,s) {
 	if (s.indexOf('_xAPP5x_')>=0) {
-        if (console) console.log('component '+s);
 		var subId=null;
 		var app5Id=s.substr(0,s.indexOf('_xAPP5x_'));
 		if (app5Id.indexOf('_xSUBx_')>=0) {
@@ -278,8 +277,7 @@ a5_application.prototype.dispatchEventForId=function(e,s) {
 			}
 		}
 		var eventType=e.type;
-        if (console) console.log('id: '+app5Id+' event: on'+eventType+shortSuffix);
-		if (App5.ids[app5Id]) {
+ 		if (App5.ids[app5Id]) {
 			//if (eventType=='touchstart') eventType='click';
  			// first check if the component handles it's own event.
 			if (App5.ids[app5Id]['on'+eventType+shortSuffix]) {
