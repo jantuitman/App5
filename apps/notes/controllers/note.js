@@ -7,9 +7,9 @@ App5.Controller('note',{
 		this.index=data.index;
 
 		var notes=App5.getModel('notes');
-		App5.get('myform').setKeyPath([ data.index ]);
-		App5.get('myform').setKeys( { 'title': 'title', 'text': 'text'});
-		App5.get('myform').setModel(notes);
+		this.getComponent('myform').setKeyPath([ data.index ]);
+		this.getComponent('myform').setKeys( { 'title': 'title', 'text': 'text'});
+		this.getComponent('myform').setModel(notes);
 	}
 	,
 	

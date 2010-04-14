@@ -6,6 +6,7 @@
 function a5_fragment(id)
 {
    this.id=id;
+   this.viewName=null; // will be set by the parser.
    this.name="a5_fragment";
    this.children=[];
    this.attributes={ str: "" };

@@ -1,6 +1,7 @@
 function a5_screen(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_screen';
 	this.childsAllowed=['a5_sidebar?','a5_header','a5_body','a5_footer?'];
 	this.children=[];
@@ -43,11 +44,11 @@ a5_screen.prototype.render=function(replace)
 a5_screen.prototype.activate=function(transition) {
 	// TODO: this might go wrong if the screen is already the current screen.
 
-	if (App5.$(this.id).get(0)) {
+	if (App5.$(this).get(0)) {
 	this.render(true);
 	}
 	else {
 		this.render(false);
 	}
-	this.parent.animateScreen(this.id,transition);
+	this.parent.animateScreen(this,transition);
 }

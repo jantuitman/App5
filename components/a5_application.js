@@ -1,6 +1,7 @@
 function a5_application()
 {
   this.name='a5_application';
+  this.viewName=null; // will be set by the parser.
   this.childType='unordered';	
   this.childsAllowed=['a5_screen'];
   this.children=[];  
@@ -56,15 +57,37 @@ a5_application.prototype.generateStyleSheet=function() {
 	var arr=[];
 	var self=this;
 	arr.push('<style id="app5stylesheet" type="text/css">')
+	var processStyle=function(text) {
+		 
+	    text=text.replace(/\[(.*?)\]/g,function (str,p1) { return self.settings.layout[p1];  })
+		arr.push(text);
+	    //inserting basic stylesheet
+		arr.push('</style>');
+	    $('head').append(arr.join(''));
+	}
 	$.ajax({
-	  url: App5.corePath+'style/app5.css',
+	  url: App5.appPath+'style/app5.css',
 	  responseType: 'text',
-	  	success: function(text) {
-		    text=text.replace(/\[(.*?)\]/g,function (str,p1) { return self.settings.layout[p1];  })
-			arr.push(text);
-		    //inserting basic stylesheet
-			arr.push('</style>');
-		    $('head').append(arr.join(''));
+	  	success: function(txt) {
+			if (txt=='' || txt==null) {
+				$.ajax({ 
+				  url: App5.corePath+'style/app5.css',
+				  responseType: 'text',
+				  success: processStyle,
+				  error: function (a1,a2,a3) {
+					
+				  } 
+				});
+			}
+			else processStyle(txt);
+		
+     	},
+		error: function() {
+			$.ajax({ 
+			  url: App5.corePath+'style/app5.css',
+			  responseType: 'text',
+			  success: processStyle
+			});
 		}
 	}
 	)
@@ -254,50 +277,73 @@ a5_application.prototype.captureEvent=function(e) {
     if (e.currentTarget) {
 	   s=e.currentTarget.id;
     }
-	if (e.type=='touchstart' || e.type=='touchmove') {
-		//console.log("touch event :"+s);
+	if (e.type=='touchstart') {
+		console.log("touch event :"+s);
 	}
     if (s) return this.dispatchEventForId(e,s);
 }
 
 a5_application.prototype.dispatchEventForId=function(e,s) {
-	if (s.indexOf('_xAPP5x_')>=0) {
-		var subId=null;
-		var app5Id=s.substr(0,s.indexOf('_xAPP5x_'));
-		if (app5Id.indexOf('_xSUBx_')>=0) {
-			subId=app5Id.substr(app5Id.indexOf('_xSUBx_')+7,app5Id.length);
-			app5Id=app5Id.substr(0,app5Id.indexOf('_xSUBx_'));
-		}
-		var suffix=s.substr(s.indexOf('_xAPP5x_')+8,s.length);
+
+   if (s.indexOf("app5_")==0) {
+	    // parse the id.
+	 
+		var rest=s.substr(5,s.length);
+		var applicationId=rest.substr(0,rest.indexOf("_"));
+		rest=rest.substr(rest.indexOf("_")+1,rest.length);
+		var viewName=rest.substr(0,rest.indexOf("_"));
+		rest=rest.substr(rest.indexOf("_")+1,rest.length);
+		var componentId=rest.substr(0,rest.indexOf("_"));
+		rest=rest.substr(rest.indexOf("_")+1,rest.length);
+		var subId='';
+		var suffix='';
 		var shortSuffix='';
-		if (suffix.length>0) {
-		    shortSuffix='_'+suffix;
-		    if (suffix.indexOf("_")>=0) {
-				shortSuffix='_'+suffix.substr(suffix.indexOf("_"),suffix.length);
-			}
-		}
-		var eventType=e.type;
- 		if (App5.ids[app5Id]) {
-			//if (eventType=='touchstart') eventType='click';
- 			// first check if the component handles it's own event.
-			if (App5.ids[app5Id]['on'+eventType+shortSuffix]) {
-				App5.ids[app5Id]['on'+eventType+shortSuffix](e,subId);
+		var suffixRest='';
+		// suffix is not allways there.
+		if (rest.indexOf("_")>=0) {
+			subId=rest.substr(0,rest.indexOf("_"));
+			suffix=rest.substr(rest.indexOf("_")+1,rest.length);
+			if (suffix.indexOf("_")>=0) {
+				shortSuffix=suffix.substr(0,suffix.indexOf("_"));
+				suffixRest=suffix.substr(suffix.indexOf("_")+1,suffix.length);
 			}
 			else {
-				// the component does not handle its event. so perhaps the controller has a handler.
-				var controller=this.views[this.currentView];
-				
-				if (controller != null && controller['on'+eventType+'_'+App5.shortId(app5Id)+shortSuffix]) {
-					controller['on'+eventType+'_'+App5.shortId(app5Id)+shortSuffix](e,subId);
-				}
+				shortSuffix=suffix;
 			}
-				
-			
-			
+    	}
+		else {
+			subId=rest;
 		}
-		App5.processUpdates();
-	}
-	else return true;
+		
+		// now fire event.
+		console.log("Event handling "+applicationId+" "+viewName+" "+componentId+" "+subId);
+		var app5Id='app5_'+applicationId+'_'+viewName+'_'+componentId+(subId==''?'':'_'+subId);
+		if (App5.ids[app5Id]) {
+			var eventType=e.type;
+			if (eventType=="touchstart") eventType="click";
+			var restOfName=(shortSuffix==''?'':'_'+shortSuffix)
+			console.log("restOfName "+restOfName)
+			if (App5.ids[app5Id]['on'+eventType+restOfName]) {
+				App5.ids[app5Id]['on'+eventType+restOfName](e,subId,suffixRest);
+			}
+			else {
+				console.log("looking on controller: "+'on'+eventType+'_'+componentId+restOfName);
+				var controller=this.views[this.currentView];
+				if (controller != null && controller['on'+eventType+'_'+componentId+restOfName]) {
+					controller['on'+eventType+'_'+componentId+restOfName](e,subId,suffixRest);
+				}
+				
+			}
+			
+			// after an event is been handled, there might be updates in the queue.
+	        App5.processUpdates();
+		}
+		else {
+			console.log(" component does not exist: "+app5Id);
+		}
+   }
+   else return true;
+
 }
 
 /********** views/controllers *************/
@@ -345,8 +391,8 @@ a5_application.prototype.popView=function() {
 a5_application.prototype.showView=function(viewName,data,transition) {
     
     var self=this;
-	var suffix='';
-	if (this.renderStyle==App5.RS_LARGE) suffix='_large';
+	var resourceSuffix='';
+	if (this.renderStyle==App5.RS_LARGE) resourceSuffix='_large';
     
 	if (this.views[viewName]) {
 		this.views[viewName].activate(data,transition);
@@ -356,7 +402,7 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 	else
 	{
 		$.ajax({
-			url: App5.appPath+'views/'+viewName+suffix+'.xml',
+			url: App5.appPath+'views/'+viewName+resourceSuffix+'.xml',
 			type: 'get',
 			responseType: 'text',
 			success: function(txt) {
@@ -365,7 +411,7 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 					txt=s
 				}				
 				$.ajax({
-					url: App5.appPath+'controllers/'+viewName+suffix+'.js',
+					url: App5.appPath+'controllers/'+viewName+resourceSuffix+'.js',
 					type: 'get',
 					success: function (t) {
 						
@@ -403,17 +449,17 @@ a5_application.prototype.showView=function(viewName,data,transition) {
 	}
 }
 
-a5_application.prototype.animateScreen=function(id,transition) {
+a5_application.prototype.animateScreen=function(component,transition) {
 	
 	// TODO: add different transitions.
-	
-	if (this.currentScreenId != null && App5.$(this.currentScreenId)) {
-		var oldId=this.currentScreenId;
-		$('#'+oldId).animate({'left':'-=320px'},'fast');
+	if (this.currentScreen != null && App5.$(this.currentScreen).get(0)) {
+		var self=this;
+		var previousScreen=this.currentScreen;
+		App5.$(this.currentScreen).animate({'left':'-=320px'},'fast');
 		
-		if (oldId != id ) {
+		if (this.currentScreen != component ) {
 			window.setTimeout(function () {
-				App5.$(oldId).remove();
+				App5.$(previousScreen).remove();
 			},20)
 		}
 	}
@@ -426,8 +472,10 @@ a5_application.prototype.animateScreen=function(id,transition) {
 	if (transition==App5.TRANSITION_GOFORWARD) {
 		
 		if (this.deviceModel==App5.DM_IPHONE || this.deviceModel==App5.DM_IPAD ) {
-			var o=App5.$(id).css({ display: 'block' , position: 'absolute', left: '0px' , top: '0px' }).get(0);
-			if (o==null) 
+			var o=App5.$(component).css({ display: 'block' , position: 'absolute', left: '0px' , top: '0px' }).get(0);
+			if (o==null) {
+				debugger;
+			}
 			o.style.webkitTransitionDuration='0';
 			o.style.webkitTransform='translate(320px,0px)';
 			
@@ -440,7 +488,7 @@ a5_application.prototype.animateScreen=function(id,transition) {
 			
 		}
 		if (this.deviceModel==App5.DM_BROWSER ) {
-			App5.$(id).css({ display: 'block', position: 'absolute' , left:'320px' , top:'0px'})
+			App5.$(component).css({ display: 'block', position: 'absolute' , left:'320px' , top:'0px'})
 			//alert(App5.$(id).get(0).style.display);
 			//now animate.
 			.animate({'left':'-=320px'},'fast');
@@ -451,7 +499,7 @@ a5_application.prototype.animateScreen=function(id,transition) {
 	}
 	if (transition==App5.TRANSITION_GOBACK) {
 		if (this.deviceModel==App5.DM_IPHONE || this.deviceModel==App5.DM_IPAD ) {
-			var o=App5.$(id).css({ display: 'block' , position: 'absolute', left: '0px' , top: '0px'}).get(0);
+			var o=App5.$(component).css({ display: 'block' , position: 'absolute', left: '0px' , top: '0px'}).get(0);
 			o.style.webkitTransitionDuration='0';
 			o.style.webkitTransform='translate(-320px,0px)';
 			
@@ -463,7 +511,7 @@ a5_application.prototype.animateScreen=function(id,transition) {
 			
 		}
 		if (this.deviceModel==App5.DM_BROWSER ) {
-			App5.$(id).css({ display: 'block', position: 'absolute' , left:'-320px' , top:'0px'})
+			App5.$(component).css({ display: 'block', position: 'absolute' , left:'-320px' , top:'0px'})
 			//alert(App5.$(id).get(0).style.display);
 			//now animate.
 			.animate({'left':'+=320px'},'fast');
@@ -471,7 +519,7 @@ a5_application.prototype.animateScreen=function(id,transition) {
 		}
 	}
 	
-	this.currentScreenId=id;
+	this.currentScreen=component;
 }
 
 

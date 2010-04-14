@@ -4,11 +4,11 @@ App5.Controller('notes',{
     ,
     
     onload: function(success,failure) {
-		var list=App5.get('mylist');
+		var list=this.getComponent('mylist');
 		var notes=App5.getModel('notes');
 		list.setModel(notes);
 		list.setKeys({ title: 'title'});
-		App5.get('myform').setModel(notes);
+		this.getComponent('myform').setModel(notes);
 		success();
 	}
 	,
@@ -19,18 +19,19 @@ App5.Controller('notes',{
     ,
     
     onselect_mylist: function(data) {
-		var form=App5.get("myForm");
-		App5.get('myform').setKeyPath([ data.index ]);
-		App5.get('myform').setKeys( { 'title': 'title', 'text': 'text'});
+		var form=this.getComponent("myForm");
+		this.getComponent('myform').setKeyPath([ data.index ]);
+		this.getComponent('myform').setKeys( { 'title': 'title', 'text': 'text'});
     }
 	,
 	
 	onclick_addButton: function (event) {
+		alert("adding!!!")
 		var model=App5.getModel('notes');
 		model.data.push({ title: 'New note' });
 		model.update();
-		App5.get('myform').setKeyPath([ model.data.length-1 ]);
-		App5.get('myform').setKeys( { 'title': 'title', 'text': 'text'});
+		this.getComponent('myform').setKeyPath([ model.data.length-1 ]);
+		this.getComponent('myform').setKeys( { 'title': 'title', 'text': 'text'});
 	}
 
 		

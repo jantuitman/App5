@@ -1,6 +1,7 @@
 function a5_header(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_header';
 	this.childType='unordered';
 	this.childsAllowed=['a5_button'];

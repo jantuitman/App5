@@ -1,6 +1,7 @@
 function a5_html(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_html';
 	this.childType='untyped';
 	this.children=[];

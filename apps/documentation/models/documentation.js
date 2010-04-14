@@ -18,7 +18,7 @@ function documentation()
          },
          {
             "title":"Views",
-            "text":"A view in App5 is an xml file that defines the layout of several components. A view can be loaded and displayed, either full screen or as a modal overlay (modal overlay currently is not yet implemented.)\u000a\u000aEach view has a controller, which is a javascript file, which has the same name as the view itself. The controller contains eventhandling functions for the view.\u000a\u000aTo load a view: use ``App5.pushView(viewName,params,viewMode)``. The viewName is a string which contains (part of) the name of the xml file that contains the view definition. It is a part, because for different screen resolutions a postfix sometimes is appended. See .... for details.\u000aThe ``params`` parameter is an object that contains data that will be passed to the ``on_show`` method of the controller.\u000aThe ``viewMode`` defines the type of the view (normal, or modal overlay).\u000a\u000aAn example of an xml file for a view: \u000a\u000a<<<\u000a<a5_screen>\u000a\u0009<a5_header title=\"overview\">\u000a             <a5_button id=\"addButton\" label=\"add\" />\u000a        </a5_header>\u000a\u0009<a5_body scrollwrapping=\"true\">\u000a\u0009\u0009<a5_list id=\"mylist\" arrows=\"true\"/>\u000a\u0009</a5_body>\u000a\u0009<a5_footer></a5_footer>\u000a</a5_screen>\u000a>>>\u000a\u000aThe view allways must contain a root tag called ``a5_screen``. (It would be nice if we could also load other parts but for now screens and views are tightly coupled). The tags correspond with components, so the ``<a5_screen>`` tag will create an a5_screen component. \u000aEach component can define the subtags that are allowed, so an ``a5_screen`` can have subtags ``a5_header`` and ``a5_body`` and ``a5_footer`` but not, for instance``a5_form``.\u000a\u000a\u000a++API\u000a\u000aAPI calls that correspond with views:\u000a\u000a| App5.pushView | shows a new view on the screen |\u000a| App5.popView   | closes the current view                |\u000a\u000a\u000a\u000a\u000a\u000a\u000a\u000a"
+            "text":"A view in App5 is an xml file that defines the layout of several components. A view can be loaded and displayed, either full screen or as a modal overlay (modal overlay currently is not yet implemented.)\u000a\u000aEach view has a controller, which is a javascript file, which has the same name as the view itself. The controller contains eventhandling functions for the view.\u000a\u000aTo load a view: use ``App5.pushView(viewName,params,viewMode)``. The viewName is a string which contains (part of) the name of the xml file that contains the view definition. It is a part, because for different screen resolutions a postfix sometimes is appended. See .... for details.\u000aThe ``params`` parameter is an object that contains data that will be passed to the ``on_show`` method of the controller.\u000aThe ``viewMode`` defines the type of the view (normal, or modal overlay).\u000a\u000aAn example of an xml file for a view: \u000a\u000a<<<\u000a<a5_screen >\u000a\u0009<a5_header title=\"overview\">\u000a             <a5_button id=\"addButton\" label=\"add\" />\u000a        </a5_header>\u000a\u0009<a5_body scrollwrapping=\"true\">\u000a\u0009\u0009<a5_list id=\"mylist\" arrows=\"true\"/>\u000a\u0009</a5_body>\u000a\u0009<a5_footer></a5_footer>\u000a</a5_screen>\u000a>>>\u000a\u000aThe view allways must contain a root tag called ``a5_screen``. (It would be nice if we could also load other parts but for now screens and views are tightly coupled). The tags correspond with components, so the ``<a5_screen xmlns=\"http://www.tuitman.org/app5\" >`` tag will create an a5_screen component. \u000aEach component can define the subtags that are allowed, so an ``a5_screen`` can have subtags ``a5_header`` and ``a5_body`` and ``a5_footer`` but not, for instance``a5_form``.\u000a\u000a\u000a++API\u000a\u000aAPI calls that correspond with views:\u000a\u000a| App5.pushView | shows a new view on the screen |\u000a| App5.popView   | closes the current view                |\u000a\u000a\u000a\u000a\u000a\u000a\u000a\u000a"
          },
          {
             "title":"Controllers",
@@ -32,41 +32,27 @@ function documentation()
                   "text":"Components use models to retrieve the data that they can render. However, only a few  container components need to be actually coupled to models.\u000a\u000aSmaller components like input, label, textarea use their parent components to retrieve their own model data.\u000a\u000aSo which container components are providing this data binding?\u000a\u000a- a5_list (maps to an array)\u000a- a5_panel (maps to an object)\u000a- a5_form (als maps to an object)\u000a\u000aactually a form is just a panel with a different presentation.\u000a\u000a++ List data binding\u000a\u000aa5_list clones its subcomponents to render list items. On each child component the function .setModel is called to bind this node to a specific path in the model.\u000aTherefore the list item should also be a data binding component. (like a5_panel, for instance).\u000a\u000a++ Object data binding\u000a\u000aa5_panel, a5_form and other components that provide data binding need to have a function called setModel() to set the model on this component. They also need to implement a setKeys() and a getKeys() function. The keys are a mapping for child component id's to model keys.\u000aSo for example:\u000a\u000a<<<\u000a\u000aform.setModel(person);\u000aform.setKeys( { 'input1' : 'name' , 'input2' : 'surname' })\u000a\u000a>>>\u000a\u000athis makes that input1 will be mapped to the name property of person, and input2 will be mapped to the surname property.\u000a\u000a++ child components\u000a\u000achild components can retrieve/modify their model value. They send in their id to the parent, and the parent translates this into a short id and uses it to determine the key and query the model with that key.\u000aThe code that is neeeded in the child component:\u000a\u000a<<<\u000a\u000a// load value from model\u000avar value=this.getParentObject().getValueFor(this.id);\u000a\u000a// save value to model\u000athis.getParentObject().setValueFor(this.id,value);\u000a\u000a>>>\u000a"
                }
             ]
-         },
-         {
-            "title":"Models",
-            "text":"A Model in App5 is a javascript class that is responsible for storing data. Each model resides in a javascript file inside the models folder.\u000aThis script (for example: notes.js) can be loaded by a call to App5.loadModel('notes',success,failure) where success and failure are callback functions (one of them is executed after loading the model script).\u000a\u000aBecause models will be loaded quite often, controllers can define a property called models, the value of which is an array of strings, declaring which models are needed for this controller. The script files will then be loaded automatically, and the instance of the model is returned (in the controller) whenever the controller calls ``App5.getModel('notes')``.\u000a\u000aSo what happens inside a model? The default App5 model class wraps a json object, which can be accessed by the .data property of the model instance.\u000aWhenever a value is changed in the data property, the .update() method should be called on the model. This notifies components that listen to this model to update their contents.\u000a\u000aIt also saves the json object into HTML5 local storage. (If debug is enabled, the json object will not be saved). The next time when the model is loaded, its data object will be retrieved from the storage.\u000a\u000aBy this way, models provide a very easy way of persistent data to your app. You don't need a server or an ajax call! But if you want to sync the object via AJAX or (in an embedded situation) with an objective C model, this is also possible.\u000a\u000a",
-            "children":[{
-                  "title":"Syncing a model over HTTP"
-               },
-               {
-                  "title":"Syncing a model with objective C"
-               }
-            ]
-         }
+         }	,
+	     {
+	            "title":"Models",
+	            "text":"A Model in App5 is a javascript class that is responsible for storing data. Each model resides in a javascript file inside the models folder.\u000aThis script (for example: notes.js) can be loaded by a call to App5.loadModel('notes',success,failure) where success and failure are callback functions (one of them is executed after loading the model script).\u000a\u000aBecause models will be loaded quite often, controllers can define a property called models, the value of which is an array of strings, declaring which models are needed for this controller. The script files will then be loaded automatically, and the instance of the model is returned (in the controller) whenever the controller calls ``App5.getModel('notes')``.\u000a\u000aSo what happens inside a model? The default App5 model class wraps a json object, which can be accessed by the .data property of the model instance.\u000aWhenever a value is changed in the data property, the .update() method should be called on the model. This notifies components that listen to this model to update their contents.\u000a\u000aIt also saves the json object into HTML5 local storage. (If debug is enabled, the json object will not be saved). The next time when the model is loaded, its data object will be retrieved from the storage.\u000a\u000aBy this way, models provide a very easy way of persistent data to your app. You don't need a server or an ajax call! But if you want to sync the object via AJAX or (in an embedded situation) with an objective C model, this is also possible.\u000a\u000a",
+	            "children":[{
+	                  "title":"Syncing a model over HTTP"
+	               },
+	               {
+	                  "title":"Syncing a model with objective C"
+	               }
+	            ]
+	     }
       ]
-   },
-   {
-      "title":"App5 in the browser"
-   },
-   {
-      "title":"Making native apps"
-   },
-   {
-      "title":"Download",
-      "text":"You can download a zip file or git clone the source from \"github\":(http://github.com/jantuitman/App5)\u000a\u000a"
-   },
-   {
-      "title":"API Docs"
-   },
-   {
-      "title":"FAQ"
    }
-]
+   ]
+
 
 }
+
+
 
 documentation.prototype=new App5Model();
 
 
-//App5.models['documentation']=documentation;

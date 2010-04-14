@@ -1,6 +1,7 @@
 function a5_button(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_button';
 	this.childType='#text';
 	this.children=[];

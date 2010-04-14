@@ -6,14 +6,14 @@ App5.Controller('singlepage',{
 	onshow: function (data) {
 		this.treePath=data;
 		var notes=App5.getModel('documentation');
-		App5.get('mywiki').setModel(notes);
-		App5.get('mywiki').setKeyPath(data);
+		this.getComponent('mywiki').setModel(notes);
+		this.getComponent('mywiki').setKeyPath(data);
 		if (notes.getValueForPath(data).children != null) {
-			App5.get('childlist').setModel(notes);
-			App5.get('childlist').setKeyPath(App5.get('mywiki').getKeyPath('children'));
+			this.getComponent('childlist').setModel(notes);
+			this.getComponent('childlist').setKeyPath(this.getComponent('mywiki').getKeyPath('children'));
 		}
 		else {
-			App5.get('childlist').setModel(null);
+			this.getComponent('childlist').setModel(null);
 		}
 	}
 	,

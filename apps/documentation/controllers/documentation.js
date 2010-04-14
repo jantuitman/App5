@@ -4,7 +4,7 @@ App5.Controller('documentation',{
     ,
     
     onload: function(success,failure) {
-		var list=App5.get('mylist');
+		var list=this.getComponent('mylist');
 		list.setModel(App5.getModel('documentation'));
 		list.setKeys({ title: 'title'});
 		success();

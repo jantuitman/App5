@@ -1,6 +1,8 @@
 function a5_list(id)
 {
 	this.id=id;
+	this.shortid='';
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_list';
 	this.childType='unordered';
 	this.childsAllowed=['a5_test','a5_panel'];
@@ -48,11 +50,30 @@ a5_list.prototype.onclick=function(event)
    	if (event.srcElement) {
 	   el=event.srcElement;
     }
+	
+	/*
+		this is a very stupid fix. it scans if the node that was clicked was a listitem
+		that does not have a subid (the id is this.id__0 this.id__1 this.id__2 etc)
+		if it had a subid, there would only be one _. 
+		
+		By checking for elements without subids we can generate events for simple lists that don't have cloned children.
+	
+	*/
 	while (el.nodeName.toUpperCase() != 'LI' && el.nodeName.toUpperCase() != 'UL') {
 		el=el.parentNode ;
 	}
 	if (el.nodeName.toUpperCase() =='LI') {
 		var s=el.id;
+		//alert("el.id   ="+el.id);
+		//alert("this.id ="+this.id)
+		var s=el.id;
+		if (s.indexOf(this.id+"__")==0) {
+			var s2=parseInt(s.substr(this.id.length+2,s.length),10);
+			if (typeof s2=="number") {
+				this.sendEventToController('select',{ index: s2 });
+			}
+		} 
+		/*
 		if (s.indexOf("_xAPP5x_")>0) {
 			s=s.substr(s.indexOf("_xAPP5x_")+8,s.length);
 			var x=parseInt(s,10);
@@ -60,6 +81,7 @@ a5_list.prototype.onclick=function(event)
 				this.sendEventToController('select',{ index: x });
 			}
 		}
+		*/
 	}
 	
 }
@@ -97,6 +119,7 @@ a5_list.prototype.renderContents=function(arr) {
 				if (i>0) {
 					this.children[i]=this.children[0].clone(i);
 				}
+				console.log("cloning "+i+" keypath",this.getKeyPath(i))
 				this.children[i].setModel(model.getValueForPath(this.getKeyPath(i)));
 			}
 			// 3. render
@@ -124,8 +147,8 @@ a5_list.prototype.renderContents=function(arr) {
 }
 
 a5_list.prototype.update=function() {
-	if (App5.$(this.id).get(0)) {
-		var el=App5.$(this.id);
+	if (App5.$(this).get(0)) {
+		var el=App5.$(this);
 		var arr=[];
 		this.renderContents(arr);
 		el.html(arr.join(''));

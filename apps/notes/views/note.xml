@@ -1,4 +1,4 @@
-<a5_screen>
+<a5_screen xmlns="http://www.tuitman.org/app5" >
 	<a5_header title="edit note"></a5_header>
 	<a5_body>
 		<a5_form id="myform">

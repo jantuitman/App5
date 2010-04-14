@@ -1,6 +1,7 @@
 function a5_body(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_body';
 	//this.childType='untyped';
 	this.childType='unordered';
@@ -39,7 +40,7 @@ a5_body.prototype.ontouchstart=function(e)
 {
 	
 	if (this.scrollhandler) { 
-	  if (!this.scrollhandler.initialized) this.scrollhandler.init(App5.$(this.id),App5.$(this.id,'scrollpane'));
+	  if (!this.scrollhandler.initialized) this.scrollhandler.init(App5.$(this),App5.$(this,'scrollpane'));
 	  return this.scrollhandler.onTouchStart(e);
 	}
 }

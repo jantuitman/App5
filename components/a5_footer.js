@@ -1,6 +1,7 @@
 function a5_footer(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_footer';
 	this.childType='unordered';
 	this.childsAllowed=['a5_button','a5_seperator'];

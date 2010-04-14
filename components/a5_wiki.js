@@ -1,6 +1,7 @@
 function a5_wiki(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_wiki';
 	this.childType='#text';
 	this.children=[];
@@ -23,9 +24,9 @@ a5_wiki.prototype.setModel=function(model) {
 
 a5_wiki.prototype.update=function()
 {
-	var o=App5.$(this.id,'wrapper');
-	if (App5.$(this.id).get(0)) {
-		var el=App5.$(this.id);
+	var o=App5.$(this,'wrapper');
+	if (App5.$(this).get(0)) {
+		var el=App5.$(this);
 		var arr=[];
 		this.renderContent(arr);
 		//console.log("updating",el,arr);

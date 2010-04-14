@@ -1,6 +1,7 @@
 function a5_buttonmenu(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_buttonmenu';
 	this.childType='unordered';
 	this.childsAllowed=['a5_button'];

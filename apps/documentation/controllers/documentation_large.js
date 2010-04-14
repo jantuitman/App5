@@ -4,24 +4,24 @@ App5.Controller('documentation',{
     ,
     
     onload: function(success,failure) {
-		var list=App5.get('mylist');
+		var list=this.getComponent('mylist');
 		var m=App5.getModel('documentation');
 		list.setModel(m);
 		list.setKeys({ title: 'title'});
-		App5.get('mywiki').setModel(m);
-		App5.get('myform').setModel(m);
+		this.getComponent('mywiki').setModel(m);
+		this.getComponent('myform').setModel(m);
 		success();
 	}
 	,
     
     onshow: function(params) {
 	    this.treePath=[];
-		var panel1=App5.get("panel1");
+		var panel1=this.getComponent("panel1");
 		panel1.setAttribute("display","block");
-		var panel2=App5.get("panel2");
+		var panel2=this.getComponent("panel2");
 		panel2.setAttribute("display","none");
-		var wiki=App5.get("mywiki");
-		var list=App5.get('mylist');
+		var wiki=this.getComponent("mywiki");
+		var list=this.getComponent('mylist');
 		list.setKeyPath(this.treePath);
 		var arr=[];
 		for (var i=0;i<this.treePath.length;i++) arr.push(this.treePath[i]);
@@ -32,7 +32,7 @@ App5.Controller('documentation',{
     ,
     
     onsidebarnavigate: function (params) {
-	   var list=App5.get('mylist');
+	   var list=this.getComponent('mylist');
 	   if (params==null) {
 	     	list.setKeyPath([]);
 	   }
@@ -43,17 +43,17 @@ App5.Controller('documentation',{
 
 
     onselect_mylist: function(data) {
-		var list=App5.get('mylist');
+		var list=this.getComponent('mylist');
 
-		var panel1=App5.get("panel1");
+		var panel1=this.getComponent("panel1");
 		panel1.setAttribute("display","block");
-		var panel2=App5.get("panel2");
+		var panel2=this.getComponent("panel2");
 		panel2.setAttribute("display","none");
-		var wiki=App5.get("mywiki");
+		var wiki=this.getComponent("mywiki");
 		wiki.setKeyPath(list.getKeyPath(data.index));
 
-		App5.get('myform').setKeyPath(list.getKeyPath(data.index));
-		App5.get('myform').setKeys( { 'title': 'title', 'text': 'text'});
+		this.getComponent('myform').setKeyPath(list.getKeyPath(data.index));
+		this.getComponent('myform').setKeys( { 'title': 'title', 'text': 'text'});
 
 		var model=App5.getModel('documentation');
 
@@ -69,9 +69,9 @@ App5.Controller('documentation',{
 		//console.log("PANEL 1 display",panel1)
 		
 		console.log("Edit button clicked");
-		var panel1=App5.get("panel1");
+		var panel1=this.getComponent("panel1");
 		panel1.setAttribute("display","none");
-		var panel2=App5.get("panel2");
+		var panel2=this.getComponent("panel2");
 		panel2.setAttribute("display","block");
 	}
 	,
@@ -80,8 +80,8 @@ App5.Controller('documentation',{
 		var model=App5.getModel('documentation');
 		model.data.push({ title: 'New page' });
 		model.update();
-		//App5.get('myform').setKeyPath([ model.data.length-1 ]);
-		//App5.get('myform').setKeys( { 'title': 'title', 'text': 'text'});
+		//this.getComponent('myform').setKeyPath([ model.data.length-1 ]);
+		//this.getComponent('myform').setKeys( { 'title': 'title', 'text': 'text'});
 	}
 	,
 	

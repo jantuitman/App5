@@ -4,7 +4,7 @@ App5.Controller('notes',{
     ,
     
     onload: function(success,failure) {
-		var list=App5.get('mylist');
+		var list=this.getComponent('mylist');
 		list.setModel(App5.getModel('notes'));
 		list.setKeys({ title: 'title'});
 		success();

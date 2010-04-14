@@ -1,6 +1,7 @@
 function a5_sidebar(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_sidebar';
 
 
@@ -108,5 +109,5 @@ a5_sidebar.prototype.update=function() {
 	
 	var arr=[];
 	this.renderContents(arr);
-	App5.$(this.id).html(arr.join(""));
+	App5.$(this).html(arr.join(""));
 }

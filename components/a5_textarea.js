@@ -1,6 +1,7 @@
 function a5_textarea(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_textarea';
 	this.childType='unordered';
 	this.childsAllowed=[];
@@ -21,7 +22,7 @@ a5_textarea.prototype.render=function(arr)
 
 a5_textarea.prototype.update=function()
 {
-	var o=App5.$(this.id,'wrapper');
+	var o=App5.$(this,'wrapper');
 	if (o.get(0)) {
 		var el=o;
 		var arr=[];
@@ -36,7 +37,7 @@ a5_textarea.prototype.renderContent=function(arr) {
 	arr.push(this.attributes['label']);
 	arr.push('</label>');
 	var value='';
-	var value=form.getModelValueFor(this.id);
+	var value=form.getModelValueFor(this.shortid);
 	if (value==null) value='';
 
     var nLines=0; var pos=0;
@@ -63,9 +64,9 @@ a5_textarea.prototype.renderContent=function(arr) {
 }
 
 a5_textarea.prototype.onchange=function () {
-	var value=App5.$(this.id).get(0).value;
+	var value=App5.$(this).get(0).value;
 	var form=this.getParentObject();
-	form.setModelValueFor(this.id,value);
+	form.setModelValueFor(this.shortid,value);
 }
 
 a5_textarea.prototype.onfocus=function(event) {
@@ -78,7 +79,7 @@ a5_textarea.prototype.onfocus=function(event) {
 a5_textarea.prototype.onkeyup=function(event) {
 	//console.log("keyup detected "+event.keyCode)
     if (this.getParentObject("a5_application").deviceModel==App5.DM_IPHONE ||this.getParentObject("a5_application").deviceModel==App5.DM_IPAD) {
-	  var textarea = App5.$(this.id).get(0);
+	  var textarea = App5.$(this).get(0);
 	  var newHeight = textarea.scrollHeight;
 	  var currentHeight = textarea.clientHeight;
 
@@ -88,7 +89,7 @@ a5_textarea.prototype.onkeyup=function(event) {
 	}
 	else {
 		// TODO: make this thing just as high as the window is 
-		App5.$(this.id).css({ height: '250px'})
+		App5.$(this).css({ height: '250px'})
 	}
 }
 

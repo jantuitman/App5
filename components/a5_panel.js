@@ -1,6 +1,7 @@
 function a5_panel(id)
 {
 	this.id=id;
+	this.viewName=null; // will be set by the parser.
 	this.name='a5_panel';
 	//this.childType='untyped';
 	this.childType='unordered';
@@ -32,20 +33,20 @@ a5_panel.prototype.setKeys=function(keys) {
 		this.children[i].update();
 	}
 }
-a5_panel.prototype.getModelValueFor=function (id) {
+a5_panel.prototype.getModelValueFor=function (shortId) {
 	var keys=this.getKeys();
 	if (keys==null) return null;
 	console.log("keys",keys,"subid",this.subid);
-	var key=keys[App5.shortId(id)];
+	var key=keys[shortId];
 	if (key!=null && this.model != null) {
 		return App5.wrapModel(this.model).getValueForPath(this.getKeyPath(key));
 	}
 	return null;
 }
 
-a5_panel.prototype.setModelValueFor=function (id,value) {
+a5_panel.prototype.setModelValueFor=function (shortId,value) {
 	var keys=this.getKeys();
-	var key=keys[App5.shortId(id)];
+	var key=keys[shortId];
 	if (key!=null && this.model != null) {
 		App5.wrapModel(this.model).setValueForPath(key,value);
 	}
@@ -62,7 +63,7 @@ a5_panel.prototype.render=function(arr)
 
 a5_panel.prototype.update=function()
 {
-	var o=App5.$(this.id,'wrapper');
+	var o=App5.$(this,'wrapper');
 	if (o) {
 		var arr=[];
 		this.renderContent(arr);
