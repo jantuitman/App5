@@ -320,7 +320,7 @@ a5_application.prototype.dispatchEventForId=function(e,s) {
 		var app5Id='app5_'+applicationId+'_'+viewName+'_'+componentId+(subId==''?'':'_'+subId);
 		if (App5.ids[app5Id]) {
 			var eventType=e.type;
-			if (eventType=="touchstart") eventType="click";
+			//if (eventType=="touchstart") eventType="click";
 			var restOfName=(shortSuffix==''?'':'_'+shortSuffix)
 			console.log("restOfName "+restOfName)
 			if (App5.ids[app5Id]['on'+eventType+restOfName]) {

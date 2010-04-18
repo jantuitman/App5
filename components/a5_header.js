@@ -13,7 +13,11 @@ function a5_header(id)
 a5_header.prototype=new App5Component();
 
 a5_header.prototype.onclick_backbutton=function () {
-	App5.popView();
+	
+	//console.log("backbutton on "+this.id);
+	// cant call it directly,because on iphone it causes the backbutton event to be handled on the new html as well!
+	//window.setTimeout( function () { App5.popView(); },0 );
+    App5.popView();
 }
 
 a5_header.prototype.render=function(arr) {

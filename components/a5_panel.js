@@ -20,7 +20,7 @@ a5_panel.prototype=new App5Component();
 /*** mix-in for data binding */
 
 a5_panel.prototype.getKeys=function () {
-	if (this.subid !=null) {
+	if (this.isDataBound()) {
 		return this.getParentObject().getKeys();
 	}
 	else return this.keys;

@@ -28,7 +28,7 @@ a5_form.prototype.setModel=function(model) {
 }
 
 a5_form.prototype.getKeys=function () {
-	if (this.subid !=null) {
+	if (this.isDataBound()) {
 		return this.getParentObject().getKeys();
 	}
 	else return this.keys;

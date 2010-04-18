@@ -26,7 +26,7 @@ a5_list.prototype.setModel=function(model) {
 }
 
 a5_list.prototype.getKeys=function () {
-	if (this.subid !=null) {
+	if (this.isDataBound()) {
 		return this.getParentObject().getKeys();
 	}
 	else return this.keys;
@@ -41,7 +41,15 @@ a5_list.prototype.setKeys=function(keys) {
 }
 
 
-a5_list.prototype.onclick=function(event)
+/*
+	this is a very stupid fix. the listitems <LI> tags are not cloned components themselves.
+    and they are not capturing events either. so we have to wait ontil the onclick bubbles up to the list,
+
+    then find the LI item as a parent of the original target.
+    and then get the index from it. 	
+
+*/
+a5_list.prototype.onclick=function(event,subId,rest)
 {
 	var el;
     if (event.target) {
@@ -51,28 +59,19 @@ a5_list.prototype.onclick=function(event)
 	   el=event.srcElement;
     }
 	
-	/*
-		this is a very stupid fix. it scans if the node that was clicked was a listitem
-		that does not have a subid (the id is this.id__0 this.id__1 this.id__2 etc)
-		if it had a subid, there would only be one _. 
-		
-		By checking for elements without subids we can generate events for simple lists that don't have cloned children.
-	
-	*/
 	while (el.nodeName.toUpperCase() != 'LI' && el.nodeName.toUpperCase() != 'UL') {
 		el=el.parentNode ;
 	}
 	if (el.nodeName.toUpperCase() =='LI') {
 		var s=el.id;
-		//alert("el.id   ="+el.id);
-		//alert("this.id ="+this.id)
 		var s=el.id;
-		if (s.indexOf(this.id+"__")==0) {
-			var s2=parseInt(s.substr(this.id.length+2,s.length),10);
+		if (s.match(/listitem_(\d+)/)) {
+			var s2=parseInt(RegExp.$1,10);
 			if (typeof s2=="number") {
 				this.sendEventToController('select',{ index: s2 });
 			}
 		} 
+		evt.stopPropagation();
 		/*
 		if (s.indexOf("_xAPP5x_")>0) {
 			s=s.substr(s.indexOf("_xAPP5x_")+8,s.length);
@@ -124,14 +123,14 @@ a5_list.prototype.renderContents=function(arr) {
 			}
 			// 3. render
 			for (var i=0; i<listArray.length;i++) {
-				arr.push('<li '+App5.writeId(this,''+i)+'>');
+				arr.push('<li '+App5.writeId(this,'listitem_'+i)+'>');
 				this.children[i].render(arr);
 				arr.push('</li>');
 			}
 		}
 		else {
 			for (var i=0;i<listArray.length;i++) {
-				arr.push('<li '+App5.writeId(this,''+i)+'>');
+				arr.push('<li '+App5.writeId(this,'listitem_'+i)+'>');
 			
 				if (this.keys.title) {
 					var value=model.getValueForPath(this.getKeyPath(i,'title'));
