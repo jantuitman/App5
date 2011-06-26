@@ -7,6 +7,6 @@ $(document).ready(function() {
 	.module('main',function () {
 	    
 	    var layout=App5.modules.layout;
-		$("#mainDiv").layout({ dir: 'vertical', container: 'window'});
+		layout.create($("#mainDiv"),{ dir: 'vertical', provider: 'window'});
 	});
 })

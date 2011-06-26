@@ -1,0 +1,20 @@
++Welcome to App5
+
+__(Update: Actually, welcome to take 2 of App5, as I rewrote the entire library from scratch in 2011)__
+
+App5 is an application framework, suited for desktop and mobile "all javascript" apps.
+
+"This is a link":(#examples/example1)
+
+++heading2
+
+Another bit of text, to look if this looks alright.
+
+-list
+-very big list
+-list
+
++++heading3
+
+text. 
+
