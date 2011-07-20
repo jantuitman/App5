@@ -12,28 +12,30 @@ text-transform:uppercase;
 letter-spacing:0.15em; 
 margin:30px 0 0 0; 
 padding:0; 
-font-size:161%;
+font-size:200%;
 line-height:2em;
 }
 
 #content h2 { 
-color:#b57111; 
+color:#206020; 
 background:transparent; 
 margin:10px 0 0 0; 
 padding:0; 
-font-size:123%;
+font-size:161%;
+line-height:2em;
 }
 
 #content h3 { 
-color:#5e2208; 
+color:#206020; 
 background:transparent; 
-margin:30px 0 0 0;
+margin:10px 0 0 0;
 padding:0;
 font-size:123%;
+line-height:1.5em;
 }
 
 #content p {
-margin:2px 0 20px 0px; 
+margin:2px 0 14px 0px; 
 padding:0; 
 line-height:1.61em; 
 text-align:justify;
@@ -59,7 +61,7 @@ text-align:justify;
 }
 
 #content {
-	background: #e0e0d0;
+	background: #efefef;
 	padding: 0 20px 0 10px;
 }
 
