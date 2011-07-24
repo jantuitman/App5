@@ -1,0 +1,74 @@
++Modules
+
+Large scale javascript applications without a module system tend to grow unreadable. The reason for that is that in javascript, by default, everything that is not wrapped inside a function, is globally accessable. This can lead to bad code practices with lots of cross references. This makes the code hard to follow. Also scripts tend to be not very reusable if they contain cross references to other scripts.
+
+All App5 code itself is written as App5 modules, making it very easy to find the public methods of the code. (they are always in the bottom part of the script files). 
+
+You can write your own scripts as App5 modules too. App5 modules are loaded when they are required, so you do not need to add <script> tags for every javascript you add to your application. Modules that are never required will never be loaded. When the application is minimized for production, modules that are not required are removed from the build.
+
+What does an App5 module look like? Usually it looks something like this:
+
+<<<
+App5
+.require('a')
+.require('b')
+.require('c')
+.module('foo',function (globals) {
+
+    var a=App5.modules.a;
+    ...
+
+	return globals;
+});
+>>>
+
+This defines the module foo which must reside in the foo.js file inside the scripts directory. Module foo requires modules a,b,c which must be in files called a.js, b.js, c.js, also inside the script directory.
+
+To use a required module you can access it as was done in the example with module a, be reading the property App5.modules.a
+
+++public and private
+
+You can write modules that can be used inside other modules. To export something, add a property to the globals variable that is passed in into the module function. Example:
+
+<<<
+App5
+.require('a')
+.require('b')
+.require('c')
+.module('foo',function (globals) {
+
+    var a=App5.modules.a;
+    
+    function privateFunction(x,y,z) {
+       ...
+    }
+    
+    globals.publicFunction=function(x,y,z) {
+       ...
+    }
+
+	return globals;
+});
+>>>
+
+Here the function publicFunction can be used inside another module. privateFunction can be called from within the module foo, but it is invisible in other modules.
+
+++Using your public functions inside another module
+
+Here is how you would use foo inside another module:
+
+<<<
+App5
+.require('foo')
+.module('bar',function (globals) {
+
+	var foo=App5.modules.foo;
+	
+	// now you can access the public properties of the foo module.
+	foo.publicFunction(1,2,3);
+
+
+});
+>>>
+
+
