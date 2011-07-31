@@ -1,0 +1,3 @@
+#!/bin/sh
+java -classpath ${APP5_HOME}/tools/jetty-6.1.26.jar:${APP5_HOME}/tools/jetty-util-6.1.26.jar:${APP5_HOME}/tools/commons-io-2.0.1.jar:${APP5_HOME}/tools/servlet-api-2.5-20081211.jar:${APP5_HOME}/tools/js.jar org.mozilla.javascript.tools.shell.Main ${APP5_HOME}/tools/app5.js $@
+#java -classpath ./tools/jetty-6.1.26.jar:./tools/jetty-util-6.1.26.jar:./tools/servlet-api-2.5-20081211.jar:./tools/js.jar org.mozilla.javascript.tools.shell.Main
