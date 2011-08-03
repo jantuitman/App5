@@ -1,1 +1,12 @@
 apps/documentation/target/*
+.DS_Store
+*.swp
+*~.nib
+ios_wrapper/build/
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+xcuserdata
+project.xcworkspace
