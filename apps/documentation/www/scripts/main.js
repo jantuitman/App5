@@ -8,7 +8,7 @@ App5
 .require('doctree')
 .require('dialog')
 .module('main',function (globals) {
-    
+	console.log('MAIN!!!');    
 	var controller=App5.modules.controller;
 	var template=App5.modules.template;
 	var promise=App5.modules.promise;
@@ -128,8 +128,9 @@ App5
 		
 	});
 
-
+    console.log('trying to render a template');
 	template.render('main.html',{ }).done(function (h) {
+		console.log('main.html loaded');
 		h.appendTo($("#mainDiv"))
 		
 		layout.create($("#screen"),{ dir: 'horizontal' });
@@ -143,6 +144,6 @@ App5
 	});	
 	//if (window.location.hash =='#mainview') controller.reloadUrl();
 	//else controller.redirect('#mainview');
-	
+
 	return globals
 });
