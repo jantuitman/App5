@@ -22,6 +22,36 @@ for (var i=0; i<arguments.length; i++) {
 }
 
 
+function BuildFileSet() {
+	this.arr=[];	
+	return this;
+}
+
+BuildFileSet.prototype=new Object();
+
+BuildFileSet.prototype.push=function(file) {
+	this.arr[this.arr.length]=file;
+}
+
+BuildFileSet.prototype.iterate=function (f) {
+	for (var i=0;i<this.arr.length;i++) {
+		f(this.arr[i]);
+	}
+}
+
+BuildFileSet.prototype.rename=function (nameQueryFn) {
+	var c = JavaImporter(java.io.File,org.apache.commons.io.FileUtils);
+	with (c) {
+		this.iterate(function (file) {
+			var newName=nameQueryFn(file.getName());
+			if (newName != null) {
+				FileUtils.moveFile(file, new File(file.getParentFile(),newName));
+			}
+		});
+	}
+	return this;
+}
+
 
 /*
  server [dir] [basedir]
@@ -129,6 +159,29 @@ if (args[0]=="generate") {
 
 if (args[0]=="ios") {
 
+	var c = JavaImporter(java.io.File,org.apache.commons.io.FileUtils);
+	with(c) {
+
+		// update www.
+		var targetwww=new File("./target/www");
+		FileUtils.copyDirectory(new File(APP5_HOME+"/lib"),targetwww);
+		FileUtils.copyDirectory(new File("./www"),targetwww);
+	
+		// copy ios_wrapper to target.
+		var ios_wrapper=new File(APP5_HOME+"/ios_wrapper");
+		var target=new File('./target');
+		FileUtils.copyDirectory(ios_wrapper,target);
+		
+		// fill ios_wrapper www
+		var targetwww=new File("./target/ios_wrapper/www");
+		FileUtils.copyDirectory(new File("./target/www"),targetwww);
+		
+		// rename xcode project.
+		var projectName=(new File('.')).getName();
+		var project=new File('./target/ios_wrapper');
+		renameXCodeProject(project,'ios_wrapper',projectName);
+	}
+	
 	quit();
 }
 
@@ -144,6 +197,7 @@ if (args[0]=="production") {
 			var targetwww=new File("./target/ios_wrapper/www");
 			FileUtils.copyDirectory(new File("./target/www"),targetwww);
 		}
+			
 	
 	}    
 	quit();
@@ -161,3 +215,43 @@ if (args[0]=="help") {
 
 print("Error: Unknown option. please type\n\napp5 help\n\n to show available options."); 
 
+///////////////////////// function stuff here /////////////////////////////////////////////
+
+function renameXCodeProject(file,oldName,newName) {
+
+   listFiles(file).rename(function (name) {
+   		if (name.indexOf('-Info.plist')+'-Info.plist'.length == name.length) {
+   			return name.replace(oldName,newName);
+   		}
+   		else if (name.indexOf('-Prefix.pch')+'-Prefix.pch'.length == name.length) {
+   			return name.replace(oldName,newName);
+   		}
+   		else if (name == oldName+'.xcodeproj') {
+   			return newName+'.xcodeproj';
+   		}
+   		else return null;
+   });
+   
+   var c = JavaImporter(java.io.File,org.apache.commons.io.FileUtils);
+   with (c) {
+	   var s=""+FileUtils.readFileToString(new File(APP5_HOME+"/tools/projecttemplate.txt"));
+	   s=s.replace(/!!APP5PROJECT!!/g,newName);
+	   FileUtils.write(new File(file,'/ios_wrapper/'+newName+'.xcodeproj/project.pbxproj'),s);
+   }
+      
+}
+
+
+function listFiles(file,fileSet) {
+    if (fileSet==null) fileSet=new BuildFileSet();
+	var list = file.listFiles();
+	print("scanning files... ");
+	for (var i=0;i<list.length;i++) {
+		fileSet.push(list[i]);
+		print("file pushed");
+		if (list[i].isDirectory()) {
+			listFiles(list[i],fileSet);
+		}
+	}
+	return fileSet;
+}
