@@ -157,7 +157,7 @@ if (args[0]=="generate") {
 	quit();
 }
 
-if (args[0]=="ios") {
+if (args[0]=="wrapper") {
 
 	var c = JavaImporter(java.io.File,org.apache.commons.io.FileUtils);
 	with(c) {
@@ -168,26 +168,25 @@ if (args[0]=="ios") {
 		FileUtils.copyDirectory(new File("./www"),targetwww);
 	
 		var ios_wrapper_target=new File("./target/ios_wrapper");
-		if (ios_wrapper_target.exists()) {
-			var targetwww=new File("./target/ios_wrapper/www");
-			FileUtils.copyDirectory(new File("./target/www"),targetwww);
+		if (ios_wrapper_target.isDirectory()) {
+			print("deleting existing directory");
+			FileUtils.deleteDirectory(ios_wrapper_target);
 		}
-		else {
+
 		
-			// copy ios_wrapper to target.
-			var ios_wrapper=new File(APP5_HOME+"/ios_wrapper");
-			var target=new File('./target/ios_wrapper');
-			FileUtils.copyDirectory(ios_wrapper,target);
-			
-			// fill ios_wrapper www
-			var targetwww=new File("./target/ios_wrapper/www");
-			FileUtils.copyDirectory(new File("./target/www"),targetwww);
-			
-			// rename xcode project.
-			var projectName=new File((new File('.')).getCanonicalPath()).getName();
-			var project=new File('./target/ios_wrapper');
-			renameXCodeProject(project,'ios_wrapper',projectName);
-		}
+		// copy ios_wrapper to target.
+		var ios_wrapper=new File(APP5_HOME+"/ios_wrapper");
+		var target=new File('./target/ios_wrapper');
+		FileUtils.copyDirectory(ios_wrapper,target);
+		
+		// fill ios_wrapper www
+		var targetwww=new File("./target/ios_wrapper/www");
+		FileUtils.copyDirectory(new File("./target/www"),targetwww);
+		
+		// rename xcode project.
+		var projectName=new File((new File('.')).getCanonicalPath()).getName();
+		var project=new File('./target/ios_wrapper');
+		//renameXCodeProject(project,'ios_wrapper',projectName);
 
 	   	var s=""+FileUtils.readFileToString(new File('./target/ios_wrapper/www/index.html'));
 	   	s=s.replace(/<!--IOS EMBED -->/g,'<script>App5.require("ios_embed")</script>');

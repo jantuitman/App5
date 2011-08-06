@@ -38,6 +38,7 @@
 	NSLog(@"and url = %@",url);
 	
 	webView.delegate = self;
+    dispatcher = [[CommandDispatcher alloc] init ];
 	
 	
 	//URL Requst Object
