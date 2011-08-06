@@ -107,8 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				E023F38C13E75586005FE601 /* www */,
-				E023F35813E566D7005FE601 /* ios_wrapper */,
-				E023F37A13E566D7005FE601 /* ios_wrapperTests */,
+				E023F35813E566D7005FE601 /* !!APP5PROJECT!! */,
+				E023F37A13E566D7005FE601 /* !!APP5PROJECT!!Tests */,
 				E023F35113E566D7005FE601 /* Frameworks */,
 				E023F34F13E566D6005FE601 /* Products */,
 			);
@@ -134,7 +134,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E023F35813E566D7005FE601 /* ios_wrapper */ = {
+		E023F35813E566D7005FE601 /* !!APP5PROJECT!! */ = {
 			isa = PBXGroup;
 			children = (
 				E023F39013E75822005FE601 /* CmdLog.h */,
@@ -170,7 +170,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E023F37A13E566D7005FE601 /* ios_wrapperTests */ = {
+		E023F37A13E566D7005FE601 /* !!APP5PROJECT!!Tests */ = {
 			isa = PBXGroup;
 			children = (
 				E023F3A713E96000005FE601 /* SerializerTests.h */,
@@ -437,13 +437,13 @@
 		E023F38913E566D7005FE601 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ios_wrapper.app/ios_wrapper";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/!!APP5PROJECT!!.app/ios_wrapper";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ios_wrapper/ios_wrapper-Prefix.pch";
+				GCC_PREFIX_HEADER = "ios_wrapper/!!APP5PROJECT!!-Prefix.pch";
 				INFOPLIST_FILE = "ios_wrapperTests/!!APP5PROJECT!!Tests-Info.plist";
 				PRODUCT_NAME = !!APP5PROJECT!!Tests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -454,13 +454,13 @@
 		E023F38A13E566D7005FE601 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ios_wrapper.app/ios_wrapper";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/!!APP5PROJECT!!.app/ios_wrapper";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ios_wrapper/ios_wrapper-Prefix.pch";
+				GCC_PREFIX_HEADER = "ios_wrapper/!!APP5PROJECT!-Prefix.pch";
 				INFOPLIST_FILE = "ios_wrapperTests/!!APP5PROJECT!!Tests-Info.plist";
 				PRODUCT_NAME = !!APP5PROJECT!!Tests;
 				TEST_HOST = "$(BUNDLE_LOADER)";

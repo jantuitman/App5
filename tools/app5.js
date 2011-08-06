@@ -169,7 +169,7 @@ if (args[0]=="ios") {
 	
 		// copy ios_wrapper to target.
 		var ios_wrapper=new File(APP5_HOME+"/ios_wrapper");
-		var target=new File('./target');
+		var target=new File('./target/ios_wrapper');
 		FileUtils.copyDirectory(ios_wrapper,target);
 		
 		// fill ios_wrapper www
@@ -177,7 +177,7 @@ if (args[0]=="ios") {
 		FileUtils.copyDirectory(new File("./target/www"),targetwww);
 		
 		// rename xcode project.
-		var projectName=(new File('.')).getName();
+		var projectName=new File((new File('.')).getCanonicalPath()).getName();
 		var project=new File('./target/ios_wrapper');
 		renameXCodeProject(project,'ios_wrapper',projectName);
 	}
@@ -220,23 +220,28 @@ print("Error: Unknown option. please type\n\napp5 help\n\n to show available opt
 function renameXCodeProject(file,oldName,newName) {
 
    listFiles(file).rename(function (name) {
-   		if (name.indexOf('-Info.plist')+'-Info.plist'.length == name.length) {
-   			return name.replace(oldName,newName);
+   		if (name== oldName+'-Info.plist') {
+   			return (""+name).replace(oldName,newName)
    		}
-   		else if (name.indexOf('-Prefix.pch')+'-Prefix.pch'.length == name.length) {
+   		else if (name== oldName+'-Prefix.pch') {
    			return name.replace(oldName,newName);
-   		}
-   		else if (name == oldName+'.xcodeproj') {
-   			return newName+'.xcodeproj';
    		}
    		else return null;
    });
-   
    var c = JavaImporter(java.io.File,org.apache.commons.io.FileUtils);
    with (c) {
-	   var s=""+FileUtils.readFileToString(new File(APP5_HOME+"/tools/projecttemplate.txt"));
-	   s=s.replace(/!!APP5PROJECT!!/g,newName);
-	   FileUtils.write(new File(file,'/ios_wrapper/'+newName+'.xcodeproj/project.pbxproj'),s);
+   		print("renaming from "+oldName+" to "+newName);
+   
+   		FileUtils.copyDirectory(new File(file,oldName+'.xcodeproj'),new File(file,newName+'.xcodeproj'));
+		FileUtils.deleteDirectory(new File(file,oldName+'.xcodeproj'));
+   		//FileUtils.copyDirectory(new File(file,oldName+'Tests'),new File(file,newName+'Tests'));
+		//FileUtils.deleteDirectory(new File(file,oldName+'Tests'));
+   		//FileUtils.copyDirectory(new File(file,oldName),new File(file,newName));
+		//FileUtils.deleteDirectory(new File(file,oldName));
+		
+	   	var s=""+FileUtils.readFileToString(new File(APP5_HOME+"/tools/projecttemplate.txt"));
+	   	s=s.replace(/!!APP5PROJECT!!/g,newName);
+	   	FileUtils.write(new File(file,newName+'.xcodeproj/project.pbxproj'),s);
    }
       
 }
@@ -245,11 +250,9 @@ function renameXCodeProject(file,oldName,newName) {
 function listFiles(file,fileSet) {
     if (fileSet==null) fileSet=new BuildFileSet();
 	var list = file.listFiles();
-	print("scanning files... ");
 	for (var i=0;i<list.length;i++) {
 		fileSet.push(list[i]);
-		print("file pushed");
-		if (list[i].isDirectory()) {
+		if (list[i].isDirectory() ) {
 			listFiles(list[i],fileSet);
 		}
 	}
