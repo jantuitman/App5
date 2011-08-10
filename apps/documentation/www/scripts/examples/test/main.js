@@ -8,7 +8,8 @@ App5
 	template.render('examples/test/main.html',{ }).done(function (h) {
 		h.appendTo($("#mainDiv"))
 	});
-
+	
 
 	return globals;
 });
+

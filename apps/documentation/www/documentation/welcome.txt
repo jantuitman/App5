@@ -1,68 +1,27 @@
 +Welcome to App5
 
-App5 is a javascript application framework, built on top of jQuery. With App5 you can write your mobile (iOS) or web browser application in javascript, HTML and CSS. App5 solves some recurring problems for javascript/HTML/css applications, like:
+App5 is a javascript application framework, built on top of jQuery. With App5 you can write your mobile (iOS) or web browser application in javascript, HTML and CSS. App5 solves some recurring problems for javascript/HTML/css applications.
 
+++Features
+
++++Very clean code thanks to a very easy, but powerful MVC pattern.
+- controllers based on urls.
+- views using jquery templates.
+
++++Application layout
 - there is a "layout":(#page/layout.txt) system that helps you deal with different resolutions, device rotation, window resize.
-- a module system for javascript, increasing the reusability of your code.
-- animated navigation, looking much like native iOS navigation.
-- a powerful  MVC pattern with templates and a url based controller.
 - dialog boxes.
-- minimizing your scripts for production builds.
+- components for animated navigation, looking much like native iOS navigation.
+
++++Mobile features:
+- IOS wrapper, allowing you to run App5 applications as native apps, integrate with objective C code, 
+
++++Tooling
+- scripts to create empty projects and quickly get started.
+- a web server for development needs.
+- making production builds and minimizing the code. 
 
 
-++A hello world example.
++Downloading and installing
 
-"Show how this looks on a phone":(#phone/test.html)
-
-App5 is just HTML. A minimal App5 based application consists of a startup html file,  one javascript file which acts as the controller for you application, and a template html file which contains your application html.
-
-+++ the startup html
-
-You need to have a body with a div to place your contents in, and load 4 javascript files: jQuery, jQuery templates, app5.js (which is the app5 module loader), and a main.js for your application.
-
-<<<
-
-	<body>
-		<div id="mainDiv" >
-		</div>
-		<script src="scripts/jquery-1.6.1.js"></script>
-		<script src="scripts/jquery.tmpl.js"></script>
-		<script src="scripts/app5.js"></script>
-		<script src="scripts/examples/test/main.js"></script>
-	</body>
-
->>>
-
-
-+++ the controller javascript
-
-What this javascript does is load the App5 template module, use it to render the application main.html template, and add the rendered content to the page.
-
-<<<
-
-App5
-.require('template')
-.module('main',function (globals) {
-    var template=App5.modules.template;
-    
-	template.render('examples/test/main.html',{ }).done(function (h) {
-		h.appendTo($("#mainDiv"))
-	});
-	return globals;
-});
-
-
->>>
-
-+++ the main html
-
-<<<
-<div>
-	My first App5 application: Hello world!
-</div>
->>>
-
-
-
-
-"Show how this looks on a phone":(#phone/test.html)
+Code is available on "https://github.com/jantuitman/App5":(https://github.com/jantuitman/App5)

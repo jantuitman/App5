@@ -255,6 +255,18 @@ function renameXCodeProject(file,oldName,newName) {
 	   	var s=""+FileUtils.readFileToString(new File(APP5_HOME+"/tools/projecttemplate.txt"));
 	   	s=s.replace(/!!APP5PROJECT!!/g,newName);
 	   	FileUtils.write(new File(file,newName+'.xcodeproj/project.pbxproj'),s);
+	   	try {
+	   		FileUtils.deleteDirectory(new File(file,newName+'.xcodeproj/project.pbxproj/xcuserdata'));
+	   	}
+	   	catch (e) {
+	   	
+	   	}
+	   	try {
+	   		FileUtils.deleteDirectory(new File(file,newName+'.xcodeproj/project.pbxproj/project.xcworkspace'));
+	   	}
+	   	catch (e) {
+	   	
+	   	}
    }
       
 }

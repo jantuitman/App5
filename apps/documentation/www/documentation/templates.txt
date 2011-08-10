@@ -1,0 +1,28 @@
++Templates
+
+Templates are loaded by requiring the module 'template' and calling the function render on this module. The first parameter is the url of the template file, relative to the templates/ directory in your project. 
+
+The second parameter can be your model, or any javascript object that provides the template with variables. The template.render function returns a Promise object, on which the method .done can be called. Whenever the template is rendered, the done method will be called  with the rendered HTML (in the form of a jquery wrapper) passed as parameter.
+
+You can append this object to your main page. 
+
+<<<
+
+App5
+.require('template')
+.module('main',function (globals) {
+    var template=App5.modules.template;
+    
+	template.render('examples/test/main.html',{ }).done(function (h) {
+		h.appendTo($("#mainDiv"))
+	});
+	return globals;
+});
+
+>>>
+
+++More on the templates
+
+TODO. Actually since the template engine is jQuery.tmpl, you can find documentation over at the jQuery site.
+
+
