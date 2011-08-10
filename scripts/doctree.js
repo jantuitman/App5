@@ -1,7 +1,8 @@
 App5.module('doctree',function (globals) {
 	
 	var nodes = enrich({
-	   'welcome.txt' : 		{   name: 'welcome'		,  children: ['modules.txt','layout.txt','controller.txt','templates.txt', 'tools.txt']},
+	   'welcome.txt' : 		{   name: 'welcome'		,  children: ['helloworld.txt','modules.txt','layout.txt','controller.txt','templates.txt', 'tools.txt']},
+	   'helloworld.txt' : 		{   name: 'hello world'		, children: []},
 	   'modules.txt' : 		{   name: 'modules'		, children: []},
 	   'layout.txt' : 		{   name: 'layout'		, children: []},
 	   'controller.txt' : 	{	name: 'controller'	, children: []},
