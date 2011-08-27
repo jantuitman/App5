@@ -104,7 +104,8 @@ if (args[0]=="server") {
 	   
 	   resourceHandler.setResourceBase(dir);
 	   resourceHandler.setWelcomeFiles(welcomeFiles);
-
+	   resourceHandler.setCacheControl("max-age=0,public");
+	   	
 	   var handlers=new HandlerList();
 	   var app5location=".";
 	   if (args[2]) {
@@ -166,7 +167,9 @@ if (args[0]=="wrapper") {
 		var targetwww=new File("./target/www");
 		FileUtils.copyDirectory(new File(APP5_HOME+"/lib"),targetwww);
 		FileUtils.copyDirectory(new File("./www"),targetwww);
-	
+	    
+	    
+	    /* 
 		var ios_wrapper_target=new File("./target/ios_wrapper");
 		if (ios_wrapper_target.isDirectory()) {
 			print("deleting existing directory");
@@ -187,7 +190,8 @@ if (args[0]=="wrapper") {
 		var projectName=new File((new File('.')).getCanonicalPath()).getName();
 		var project=new File('./target/ios_wrapper');
 		//renameXCodeProject(project,'ios_wrapper',projectName);
-
+		*/
+		
 	   	var s=""+FileUtils.readFileToString(new File('./target/ios_wrapper/www/index.html'));
 	   	s=s.replace(/<!--IOS EMBED -->/g,'<script>App5.require("ios_embed")</script>');
 	   	FileUtils.write(new File('./target/ios_wrapper/www/index.html'),s);
