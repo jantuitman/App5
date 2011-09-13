@@ -74,5 +74,12 @@
     }
 }
 
+- (void) postEvent:(NSString *)eventId withData:(NSDictionary *)data forView:(UIWebView *)webview {
+        
+    NSString* javaScript=[NSString stringWithFormat: @"App5.ios_postBack('%@',%@)" , eventId,[JSONSerializer serialize: data]];
+    [webview stringByEvaluatingJavaScriptFromString: javaScript];
+    
+}
+
 
 @end
