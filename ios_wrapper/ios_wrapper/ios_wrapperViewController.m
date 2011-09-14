@@ -51,36 +51,6 @@
 	[webView loadRequest:requestObj];
 }
 
-- (void) keyboardWillShow: (NSNotification*) item {
-    NSDictionary* info = [item userInfo];
-    CGRect kbRect = (CGRect) [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGRect screenCoords = [[webView window] convertRect:kbRect fromWindow: nil];
-    CGRect viewCoords= [webView convertRect:screenCoords fromView:nil];
-    NSLog(@"Keyboard will show at : %f,%f size %f,%f ",viewCoords.origin.x,viewCoords.origin.y,viewCoords.size.width,viewCoords.size.height);
-    NSDictionary* d = [NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSNumber numberWithFloat: viewCoords.origin.x], @"x", 
-                       [NSNumber numberWithFloat: viewCoords.origin.y], @"y", 
-                       [NSNumber numberWithFloat: viewCoords.size.width], @"width", 
-                       [NSNumber numberWithFloat: viewCoords.size.height], @"height", 
-                       nil];
-    [dispatcher postEvent:@"ios.keyboard.show" withData:d forView: webView];
-                     
-}
-- (void) keyboardWillHide: (NSNotification*) item {
-    NSDictionary* info = [item userInfo];
-    CGRect kbRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue ];
-    CGRect screenCoords = [[webView window] convertRect:kbRect fromWindow: nil];
-    CGRect viewCoords= [webView convertRect:screenCoords fromView:nil];
-    NSLog(@"Keyboard will hide from : %f,%f size %f,%f ",viewCoords.origin.x,viewCoords.origin.y,viewCoords.size.width,viewCoords.size.height);
-    NSDictionary* d = [NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSNumber numberWithFloat: viewCoords.origin.x], @"x", 
-                       [NSNumber numberWithFloat: viewCoords.origin.y], @"y", 
-                       [NSNumber numberWithFloat: viewCoords.size.width], @"width", 
-                       [NSNumber numberWithFloat: viewCoords.size.height], @"height", 
-                       nil];
-    [dispatcher postEvent:@"ios.keyboard.hide" withData:d forView: webView];
-    
-}
 
 - (void)viewDidUnload
 {
@@ -119,6 +89,42 @@
         return YES;
     }
 }
+
+/** keyboard events **/
+
+- (void) keyboardWillShow: (NSNotification*) item {
+    NSDictionary* info = [item userInfo];
+    CGRect kbRect = (CGRect) [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect screenCoords = [[webView window] convertRect:kbRect fromWindow: nil];
+    CGRect viewCoords= [webView convertRect:screenCoords fromView:nil];
+    NSLog(@"Keyboard will show at : %f,%f size %f,%f ",viewCoords.origin.x,viewCoords.origin.y,viewCoords.size.width,viewCoords.size.height);
+    NSDictionary* d = [NSDictionary dictionaryWithObjectsAndKeys:
+                       [NSNumber numberWithFloat: viewCoords.origin.x], @"x", 
+                       [NSNumber numberWithFloat: viewCoords.origin.y], @"y", 
+                       [NSNumber numberWithFloat: viewCoords.size.width], @"width", 
+                       [NSNumber numberWithFloat: viewCoords.size.height], @"height", 
+                       nil];
+    [dispatcher postEvent:@"ios.keyboard.show" withData:d forView: webView];
+    
+}
+- (void) keyboardWillHide: (NSNotification*) item {
+    NSDictionary* info = [item userInfo];
+    CGRect kbRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue ];
+    CGRect screenCoords = [[webView window] convertRect:kbRect fromWindow: nil];
+    CGRect viewCoords= [webView convertRect:screenCoords fromView:nil];
+    NSLog(@"Keyboard will hide from : %f,%f size %f,%f ",viewCoords.origin.x,viewCoords.origin.y,viewCoords.size.width,viewCoords.size.height);
+    NSDictionary* d = [NSDictionary dictionaryWithObjectsAndKeys:
+                       [NSNumber numberWithFloat: viewCoords.origin.x], @"x", 
+                       [NSNumber numberWithFloat: viewCoords.origin.y], @"y", 
+                       [NSNumber numberWithFloat: viewCoords.size.width], @"width", 
+                       [NSNumber numberWithFloat: viewCoords.size.height], @"height", 
+                       nil];
+    [dispatcher postEvent:@"ios.keyboard.hide" withData:d forView: webView];
+    
+}
+
+
+
 
 /** delegate methods for webview */
 - (void)webViewDidStartLoad:(UIWebView *)theWebView {
