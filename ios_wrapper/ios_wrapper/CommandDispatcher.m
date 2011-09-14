@@ -48,8 +48,8 @@
             
             
             NSMutableDictionary* ret = (object==nil)? 
-                [NSMutableDictionary dictionaryWithCapacity:1] : 
-                 (NSMutableDictionary*) object;
+            [NSMutableDictionary dictionaryWithCapacity:1] : 
+            (NSMutableDictionary*) object;
             
             if (callId==nil) {
                 NSLog(@"Unexpected null value for callid");
@@ -60,9 +60,9 @@
             }
             //CJSONSerializer* serializer = [CJSONSerializer serializer];
             
-
+            
             NSString* retCall=[NSString stringWithFormat:@"%@%@%@"
-                               , @"g_IOS_CALLER.receive_callback("
+                               , @"App5.IOS.receive_callback("
                                , [JSONSerializer serialize:ret]
                                , @")"
                                ];
@@ -76,7 +76,7 @@
 
 - (void) postEvent:(NSString *)eventId withData:(NSDictionary *)data forView:(UIWebView *)webview {
         
-    NSString* javaScript=[NSString stringWithFormat: @"App5.ios_postBack('%@',%@)" , eventId,[JSONSerializer serialize: data]];
+    NSString* javaScript=[NSString stringWithFormat: @"App5.IOS.postEvent('%@',%@)" , eventId,[JSONSerializer serialize: data]];
     [webview stringByEvaluatingJavaScriptFromString: javaScript];
     
 }
