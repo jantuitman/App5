@@ -40,8 +40,8 @@
         NSEnumerator *enumerator = [(NSDictionary*) object keyEnumerator];
         id key;
         int count=0;
+        [str appendString: @"{"];
         while ((key = [enumerator nextObject])) {
-            [str appendString: @"{"];
             /* code that uses the returned key */
             [str appendString: [JSONSerializer serializeString: (NSString*) key]];
             [str appendString: @" :"];
