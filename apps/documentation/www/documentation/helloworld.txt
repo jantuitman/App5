@@ -1,0 +1,56 @@
+++A hello world example.
+
+"Show how this looks on a phone":(#phone/test.html)
+
+App5 is just HTML. A minimal App5 based application consists of a startup html file,  one javascript file which acts as the controller for you application, and a template html file which contains your application html.
+
++++ the startup html
+
+You need to have a body with a div to place your contents in, and load 4 javascript files: jQuery, jQuery templates, app5.js (which is the app5 module loader), and a main.js for your application.
+
+<<<
+
+	<body>
+		<div id="mainDiv" >
+		</div>
+		<script src="scripts/jquery-1.6.1.js"></script>
+		<script src="scripts/jquery.tmpl.js"></script>
+		<script src="scripts/app5.js"></script>
+		<script src="scripts/examples/test/main.js"></script>
+	</body>
+
+>>>
+
+
++++ the controller javascript
+
+What this javascript does is load the App5 template module, use it to render the application main.html template, and add the rendered content to the page.
+
+<<<
+
+App5
+.require('template')
+.module('main',function (globals) {
+    var template=App5.modules.template;
+    
+	template.render('examples/test/main.html',{ }).done(function (h) {
+		h.appendTo($("#mainDiv"))
+	});
+	return globals;
+});
+
+
+>>>
+
++++ the main html
+
+<<<
+<div>
+	My first App5 application: Hello world!
+</div>
+>>>
+
+
+
+
+"Show how this looks on a phone":(#phone/test.html)

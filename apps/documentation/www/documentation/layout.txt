@@ -1,0 +1,64 @@
++Layout
+
+Layouting apps for different screen sizes, taking in account that the window size can change, can be quite challenging for CSS. The problem is that HTML and CSS were primarily meant for texts, originally. Applications have different needs than texts.
+
+App5 provides a layout module which uses HBOX/ VBOX based layouting. What you need to do is to partition your layout in groups of vertically and horizontally aligned parts. You can give the part a fixed size or let it grow or shrink if the window size changes.
+
+++Example
+
+"Run example":(#phone/layout.html)
+
+To use the App5 layout module in  your code, include the module in your main script. then call layout.create on an html element.
+
+<<<
+App5
+.require('template')
+.require('layout')
+.module('main',function (globals) {
+    
+    var template=App5.modules.template;
+    var layout=App5.modules.layout;
+    
+    $('body').css( { background: 'white' });
+    
+    
+    
+	template.render('examples/layout/main.html',{ }).done(function (h) {
+		h.appendTo($("#mainDiv"))
+	    layout.create($("#mainDiv"),{ dir: 'vertical' });
+	});
+
+
+	return globals;
+});
+>>>
+
+The layout information is placed (unlike regular CSS) in the template files itself. It is done by adding some of the attributes data-layout-width, data-layout-height, data-layout-container, data-layout-stretch, data-layout-flex to your html element.
+
+<<<
+ <div id="toolBar" data-layout-height="50"  style="color:white;background-color:navy;" >
+	Header
+</div>
+<div id="mainArea"  data-layout-flex="1"  style="background-color:#ccc">
+main area
+
+</div>
+<div id="footer"  data-layout-height="50" data-layout-container="horizontal" style="background-color:blue;">
+	<div id="button1"  data-layout-width="50" style="background:#0f0" ></div>
+	<div id="button2"  data-layout-width="50" style="background:#ff0" ></div>
+	<div id="button3"  data-layout-width="50" style="background:#0ff" ></div>
+</div>
+
+>>>
+
+
+In the template I've added 3 vertically ordered elements (a header, the main area, and a footer). We already specified in the call to the layout module that our layout was of the vbox type, by adding the option { dir: 'vertical' }.
+
+So we add a data-layout-height attribute to the 3 elements. Since we want to resize the main area when the window size changes, we define data-layout-flex="1" on that element. All elements with data-layout-flex set will grow and shrink. The number acts as a weight. So if you have two elements, one with data-layout-flex="3" and one with data-layout-flex="1", then resizing will grow/shrink the first element 3x more as the second element.
+
+
+App5 layouts can be nested. This is done by setting the data-layout-container attribute to a new direction value ("horizontal" or "vertical"). In the example, the footer is another layout, which is horizontally ordered. As you can see, it looks a lot like a tab control in native iPhone apps (except that I didn't bother to make nice tab icons and instead use colored divs).
+
+
+
+

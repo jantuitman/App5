@@ -1,0 +1,48 @@
++Tools
+
+in the root directory of App5 you'll find a shell script named app5.
+It runs the (Rhino) javascript tools/app5.js
+
+You can use the following commands:
+
+- app5 generate <dir> 
+- app5 server <dir> <basedir> 
+- app5 ios 
+- app5 production
+
+These commands are described below in detail.
+
+++app5 generate <dir>
+
+generate a new application. As parameter you supply a directory name which is also the application name. App5 creates a directory with this name in the current directory.
+
+The directory will have the following dirs/files:
+
+- www
+- www/index.html
+- www/scripts
+- www/scripts/main.js
+- target
+
+www is supposed to be the directory containing all your html/css/javascript.
+index.html, main.js are your startup files. 
+target is a destination directory in which minified www and IOS xcode projects are placed.
+
+++app5 server
+
+use this command to start a webserver if you want to test your app5 app in your browser. ``app5 server`` serves the current directory, and adds to it all files that are in the APP5_HOME/lib directory. (The app5 library files).
+
+If you want to do customized things, you can override your application directory and the home directory of the library in the command line.
+
+Called with 1 argument, the command overrides the APP5_HOME/lib directory (``app5 <basedir>``). Called with two arguments (``app5 <dir> <basedir>``) both locations are overridden.
+
+The server starts on port 8888. 
+
+++app5 ios
+copies the wrapper from APP5_HOME/ios_wrapper to target/ios_wrapper, and copies the files from both APP5/lib and your app, into the wrapper's www directory. If the ios_wrapper is already present in target, only the www is updated.
+
+++app5 production
+creates a minimized version of the www, both in the target/ios_wrapper/www (if present) and in target/www.
+
+
+

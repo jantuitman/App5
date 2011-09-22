@@ -1,0 +1,27 @@
++Welcome to App5
+
+App5 is a javascript application framework, built on top of jQuery. With App5 you can write your mobile (iOS) or web browser application in javascript, HTML and CSS. App5 solves some recurring problems for javascript/HTML/css applications.
+
+++Features
+
++++Very clean code thanks to a very easy, but powerful MVC pattern.
+- controllers based on urls.
+- views using jquery templates.
+
++++Application layout
+- there is a "layout":(#page/layout.txt) system that helps you deal with different resolutions, device rotation, window resize.
+- dialog boxes.
+- components for animated navigation, looking much like native iOS navigation.
+
++++Mobile features:
+- IOS wrapper, allowing you to run App5 applications as native apps, integrate with objective C code, 
+
++++Tooling
+- scripts to create empty projects and quickly get started.
+- a web server for development needs.
+- making production builds and minimizing the code. 
+
+
++Downloading and installing
+
+Code is available on "https://github.com/jantuitman/App5":(https://github.com/jantuitman/App5)

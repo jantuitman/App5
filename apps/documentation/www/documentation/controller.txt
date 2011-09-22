@@ -1,0 +1,73 @@
++The App5 controller module
+
+App5 provides a controller module that gives you a very easy pattern to set up your entire application, no matter how big it is. The idea behind it: every separate screen or dialog has a hashtag url. 
+
+Let's assume that your main file is index.html. You than can have multiple hash tag urls like index.html#screen1, index.html#screen2. The screens can be started by entering the url in the address bar of your browser, by adding a link tag to your screen and let the user click on it, or by calling the redirect method on the App5 controller module.
+
+++How to define multiple screens
+
+"Run example":(#phone/controller.html)
+
+
+To define handlers for a specific url you call the handleUrl method of the controller module, like in this example below. The controller performs a different task for each url. As you can see I've added a redirect method to the screen2 function. This causes screen2 to automaticly jump back to screen1. __(note that you can click on the code box to see the code fully in a popup)__
+
+<<<
+App5
+.require('template')
+.require('controller')
+.require('layout')
+.module('main',function (globals) {
+    
+    var template=App5.modules.template;
+    var controller=App5.modules.controller;
+    $('body').css( { background: 'white' });
+
+	template.render('examples/controller/main.html',{ }).done(function (h) {
+		h.appendTo($("#mainDiv"))
+	});
+	
+	controller.handleUrl(/screen1/,function (params) {
+		$("#message").css({ color: 'navy'}).html("screen1 visited!");	
+	
+	});
+	controller.handleUrl(/screen2/,function (params) {
+		$("#message").css({ color: 'lime'} ).html("screen2 visited!");	
+		window.setTimeout(function () {
+			controller.redirect('#screen1');
+		},700);
+	});
+
+	return globals;
+});
+
+>>>
+
+++Passing parameters in the url
+
+The parameter to controller.handleUrl is a regular expression. This means you can match parts of the url and get passed into your function with the params array.
+You could for instance define the following handler to handle all urls that have a hashtag starting with #post/
+
+<<<
+	controller.handleUrl(/post\/(\S+)/,function (params) {
+		$("#message").css({ color: 'red'} ).html("handling post "+params[1]);	
+	});
+>>>
+
+++Using the controller urls in the template
+
+In the templates the hashtags can be used as a regular url. The above example uses the following template:
+
+<<<
+<div id="content" style="width:100%">
+	<div id="message" style="margin:40px;font-size:24px">initial screen</div>
+	<ul>
+		<li><a href="#screen1">screen1</a></li>
+		<li><a href="#screen2">screen2</a></li>
+		<li><a href="#post/123">post 123</a></li>
+		<li><a href="#post/456">post 456</a></li>
+	</ul>
+</div>
+>>>
+
+
+
