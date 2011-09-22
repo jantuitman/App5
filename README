@@ -1,9 +1,11 @@
 App5 
 
 App5 is a javascript GUI / application library. You can make iPhone / iPad / browser / <... insert other device here .. > gui's with this library.
+It also contains an objective c wrapper to run your html code natively.
 
 Note: it is currently in major redesign. The documentation and development branch are updated.
-When ready, (expect: september 2011) the dvl branch will be copied to the master.
+The master branch contains a relatively stable, but not "guaranteed to work" merged version of the dvl branch.
+When ready, (expect: october 2011) the dvl branch will be merged to the master.
 
 For now: you can read the documentation on http://jantuitman.github.com/App5/
 
